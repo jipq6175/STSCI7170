@@ -1,0 +1,84 @@
+---
+title: "STSCI 7170 Homework 1"
+author: "Yen-Lin Chen (yc2253@cornell.edu)"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## 1.a
+
+Suppose a quadratic form 
+
+$$x'Ax = \sum_i \sum_j x_i a_{ij} x_j = \sum_{i} x_i^2a_{ii} + \sum_{i\neq j}x_ia_{ij}x_j$$ 
+where $A \in \mathbb{R}^n$ is an arbitrary matrix therefore $a_{ij} \neq a_{ji}$. We can construct another matrix $A^*$ with $a_{ii}^* = a_{ii}$ and $a_{ij}^* = a_{ji}^* = \frac{1}{2}(a_{ij}+a_{ji})$. As a result, 
+
+$$x'Ax = x'A^*x$$ 
+where $A^*$ is a symmetric matrix. 
+
+
+
+## 1.b 
+
+Suppose that non-zero $x, y \in \mathbb{R}^n$ with $x'y=0$ are linearly dependent, there exist a non-zero scalar $c$ such that $x = cy$. Then $$||x||^2 = x'x = x'(cy) = cx'y = 0$$ which contradict with the assumption. So $x, y$ must be linearly independent. 
+
+
+
+## 1.c
+
+$$tr(AB) = \sum_{i=1}^n \sum_{j=1}^m a_{ij}b_{ji} = \sum_{j=1}^m\sum_{i=1}^nb_{ji}a_{ij}=tr(BA)$$
+
+
+
+## 1.5
+
+Let $I\in\mathbb{R}^n$ and $v \in \mathbb{R}^n$
+$$(I+vv')\left(I - \frac{vv'}{1+v'v} \right) = I + vv' - \frac{vv'}{1+v'v} - \frac{v'v}{1+v'v}vv' = I + vv' - vv' = I$$
+
+
+## 1.6
+
+$$M=(a-b)I + bJ = (a-b)(I + \frac{b}{a-b}\mathbf{1}\mathbf{1}')$$
+using the result in 1.5 and the fact that $a>b$, we can set 
+
+$$v = \sqrt{\frac{b}{a-b}}\mathbf{1}$$
+
+Therefore, 
+
+$$M^{-1} = \frac{1}{a-b}\left(I-\frac{\frac{b}{a-b}\mathbf{1}\mathbf{1}'}{1+\frac{a}{a-b}\mathbf{1}'\mathbf{1}} \right) = \frac{1}{a-b}\left(I - \frac{b\mathbf{1}\mathbf{1}'}{a-b+nb} \right) = \frac{1}{a-b}\left(I-\frac{bJ}{a-b+nb} \right)$$
+
+
+## 1.9
+
+
+
+## 1.10
+
+
+
+## 1.13
+
+
+
+## 2.2
+
+
+
+## 2.3
+
+
+
+## 2.12
+
+
+
+## 2.16
+
+
+
+## 2.17
