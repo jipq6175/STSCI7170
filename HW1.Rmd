@@ -55,30 +55,201 @@ $$M^{-1} = \frac{1}{a-b}\left(I-\frac{\frac{b}{a-b}\mathbf{1}\mathbf{1}'}{1+\fra
 
 ## 1.9
 
+Let $G = (a-b)I + bJ = (a-b)I +b\mathbf{1}\mathbf{1}'$. We have $G\mathbf{1} = (a + (n-1)b)\mathbf{1}$. And $\forall x$ satisfying $\mathbf{1}'x=0$, $x$ is the eigenvectors of $G$ with eigenvalue $a-b$. 
+$$Gx = (a-b)x + b\mathbf{1}\mathbf{1}'x=(a-b)x$$
+Therefore, $G = PDP'$ where $D$ is a diagonal matrix with $d_{11} = a + (n-1)b$ and $d_{ii} = a-b \forall i \in \{2, 3, ..., n\}$. $P$ is the Helmert matrix with each column normalized, i.e. $a_1 = (1,1,...,1)'/\sqrt{n}$, $a_2 = (1, -1, 0, ..., 0)'/\sqrt{2}$, $a_3 = (1,1,-2,0,...,0)'/\sqrt{6}$ and so on. $a_n = (1,1,..., -(n-1))'/\sqrt{n(n-1)}$. 
+
 
 
 ## 1.10
+
+$\Sigma$ is symmetric so $\Sigma_{12} = \Sigma_{21}'$, $\Sigma_{11} = \Sigma_{11}'$ and $\Sigma_{22} = \Sigma_{22}'$. And if $\Sigma_{22}^{-1}$ exists, it is also symmetric. 
+
+$$B\Sigma B' = \left[
+\begin{array}{ccc}
+\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{12}' & 0 \\
+\Sigma_{12}' & \Sigma_{22} \\
+\end{array}\right]
+\left[
+\begin{array}{ccc}
+I & 0 \\
+-\Sigma_{22}^{-1}\Sigma_{12}' & I \\
+\end{array}\right] = \left[
+\begin{array}{ccc}
+\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{12}' & 0 \\
+0 & \Sigma_{22} \\
+\end{array}\right]
+$$
 
 
 
 ## 1.13
 
+$$cov(P'Y) = P'cov(Y)P = P'(\sigma_1^2I+\sigma_2^2\mathbf{1}\mathbf{1}')P$$
+$$=\left[ 
+\begin{array}{c}
+\mathbf{1}' \\
+P_n'
+\end{array}\right](\sigma_1^2I + \sigma_2^2\mathbf{1}\mathbf{1}')
+\left[
+\begin{array}{cc}
+\mathbf{1} & P_n
+\end{array}\right] = \sigma_1^2
+\left[\begin{array}{c}
+\mathbf{1}' \\
+P_n'
+\end{array}\right] \left[
+\begin{array}{cc}
+\mathbf{1} & P_n
+\end{array}\right] + \sigma_2^2 \left[\begin{array}{c}
+\mathbf{1}' \\
+P_n'
+\end{array}\right] \mathbf{1}\mathbf{1} '\left[
+\begin{array}{cc}
+\mathbf{1} & P_n
+\end{array}\right]$$
+$$= \sigma_1^2\left[
+\begin{array}{cc}
+\mathbf{1}\mathbf{1}' & \mathbf{1}'P_n \\
+P_n'\mathbf{1} & P_n'P_n
+\end{array}\right] + \sigma_2^2\left[ 
+\begin{array}{c}
+\mathbf{1}' \\
+P_n'
+\end{array}\right]\left[
+\begin{array}{cc}
+\mathbf{1}\mathbf{1}'\mathbf{1} & \mathbf{1}\mathbf{1}'P_n
+\end{array}\right] = \sigma_1^2\left[
+\begin{array}{cc}
+n & 0 \\
+0 & I_{(n-1)}
+\end{array}\right] + \sigma_2^2\left[ 
+\begin{array}{c}
+\mathbf{1}' \\
+P_n'
+\end{array}\right]\left[
+\begin{array}{cc}
+n\mathbf{1} & 0
+\end{array}\right]$$
+$$=\sigma_1^2\left[
+\begin{array}{cc}
+n & 0 \\
+0 & I_{n-1}
+\end{array}\right] + \sigma_2^2\left[
+\begin{array}{cc}
+n^2 & 0 \\
+0 & 0
+\end{array}\right] = \left[
+\begin{array}{cc}
+n(\sigma_1^2+n\sigma_2^2) & 0 \\
+0 & I_{n-1}
+\end{array}\right]$$
 
 
 ## 2.2
 
+The random variables form three independent sets: $\{Y_1, Y_2, Y_3\}$, $\{Y_4, Y_5\}$ and $\{Y_6\}$ so $\bar{Y_i}$'s are independent. Therefore, $\bar{\Sigma} = Cov(\bar{Y})$ is diagonal. Let $B_1 = \mathbf{1}_3'/3$, $B_2 = \mathbf{1}_2'/2$ and $B_3 = 1$. 
 
+$$\bar{\Sigma_{11}} = B_1(0.5I+0.5J)B_1' = \frac{1}{18}\mathbf{1}_3'\mathbf{1}_3+\frac{1}{18}\mathbf{1}_3'\mathbf{1}_3\mathbf{1}_3'\mathbf{1}_3 = \frac{2}{3}$$
+$$\bar{\Sigma_{22}} = B_2(0.3I+0.7J)B_2' = \frac{17}{20}$$
+Finally, $\bar{\Sigma_{33}}=1$. Therefore, $\bar{Y} \sim N(\bar{\mu}, \bar{\Sigma})$ where 
+$$\bar{\mu}=(\mu_1, \mu_2, \mu_3)'$$
+$$\bar{\Sigma} = \left[\begin{array}{ccc}
+\frac{2}{3} & 0 & 0 \\
+0 & \frac{17}{20} & 0\\
+0 & 0 & 1
+\end{array}\right]$$
 
 ## 2.3
+### (a)
+$$Y^* = \frac{1}{\sqrt{\sum_i w_i}}W'Y \sim N(\mu^*, \sigma^{*2})$$
+where $\mu^* = 0$ and 
+$$\sigma^{*2} = \frac{1}{\sum_i w_i}W'\Sigma W = 1$$
+Therefore, $Y^*\sim N(0,1)$.
 
+### (b)
 
 
 ## 2.12
+### (a)
+We would like to transform $Y = (Y_1, Y_2, Y_3, Y_4)'$ into $Z = BY = (Y_1+Y_2, Y_3+Y_4)'$. 
+$$B = \left[\begin{array}{cccc}
+1&1&0&0\\
+0&0&1&1
+\end{array}\right]$$
+$X\sim N(\mu_Z, \Sigma_Z)$ where $\mu_Z = B\mu = (5, -1)'$ and $\Sigma_Z = B\Sigma B'$
 
+$$\Sigma_Z = \left[\begin{array}{cc}
+32&0\\
+0&32
+\end{array}\right]$$
+
+We see that $Y_1+Y_2$ and $Y_3+Y_4$ are independent. Therefore, the conditional distribution of $Y_1+Y_2 | Y_3+Y_4=1$ is the same distribution as $Y_1+Y_2$.
+
+$Y_1+Y_2 | Y_3+Y_4=1 \sim Y_1+Y_2 \sim N(5, 32)$
+
+### (b)
+Rearrange the order of the random variables of interest: $(Y_3, Y_1, Y_2) \sim N((0,2,3)', \bar{\Sigma})$ where
+
+$$\bar{\Sigma} = \left[\begin{array}{ccc}
+11&1&-1\\
+1&11&5\\
+-1&5&11
+\end{array}\right]$$
+
+The conditional mean of $Y_3| Y_1=y_1, Y_2=y_2$ is 
+$$\mu_3 + \left[
+\begin{array}{cc} 1&-1 \end{array}\right]\left[\begin{array}{cc}
+11&-5\\
+-5&11
+\end{array}\right]^{-1}\left[
+\begin{array}{c} 
+y_1-\mu_1\\
+y_2-\mu_2\end{array}\right] = \frac{1}{6}\left[
+\begin{array}{cc} 1&-1 \end{array}\right]\left[
+\begin{array}{c} 
+y_1-2\\
+y_2-3\end{array}\right] = \frac{1}{6} + \frac{1}{6}y_1 - \frac{1}{6}y_2$$
 
 
 ## 2.16
-
+$(F, G)' \sim N(\mu, \Sigma)$ where $\mu = (0, 0)'$ and $\Sigma$ is diagonal with $\Sigma_{11} = \sigma^2$ and $\Sigma_{22} = 1-\sigma^2$. $Z = (F, F+G)' = B(F, G)'$ where
+$$B = \left[\begin{array}{cc}
+1&0\\
+1&1 \end{array}\right]$$
+Therefore $\Sigma_Z = B\Sigma B'$
+$$\Sigma_Z = \left[\begin{array}{cc}
+\sigma^2 & \sigma^2\\
+\sigma^2 & 1 \end{array}\right]$$
+$$\mu_{\{F|F+G=c\}} = \sigma^2c$$
+$$\sigma_{\{F|F+G=c\}}^2 = \sigma^2 - \sigma^4$$
+Therefore, $F|F+G=c \sim N(c\sigma^2, \sigma^2-\sigma^4)$
 
 
 ## 2.17
+Without loss of generality, we would like to compare the variances of the following distributions: $A \sim \{Y_1 | Y_2=y_2\}$ and $B\sim\{Y_1|Y_2=y_2, Y_3=y_3\}$. 
+$$\sigma_A^2 =\Sigma_{11} - \left[\begin{array}{cc}
+\Sigma_{12} & \Sigma_{13}\end{array}\right]\left[\begin{array}{cc}
+\Sigma_{22}^{-1}& 0\\
+0&0\end{array}\right]\left[\begin{array}{c}
+\Sigma_{12}\\
+\Sigma_{13}\end{array}\right] =\Sigma_{11} - \left[\begin{array}{cc}
+x & y\end{array}\right]\left[\begin{array}{cc}
+a^{-1}& 0\\
+0&0\end{array}\right]\left[\begin{array}{c}
+x\\
+y\end{array}\right] =\Sigma_{11} - \frac{x^2}{a}$$
+Similarly,
+$$\sigma_B^2 = \Sigma_{11} - \left[\begin{array}{cc}
+\Sigma_{12} & \Sigma_{13}\end{array}\right]\left[\begin{array}{cc}
+\Sigma_{22}& \Sigma_{23}\\
+\Sigma_{32}& \Sigma_{33}\end{array}\right]^{-1}\left[\begin{array}{c}
+\Sigma_{12}\\
+\Sigma_{13}\end{array}\right] = \Sigma_{11} - \left[\begin{array}{cc}
+x & y\end{array}\right]\left[\begin{array}{cc}
+a & b\\
+b & c\end{array}\right]^{-1}\left[\begin{array}{c}
+x\\
+y\end{array}\right] = \Sigma_{11} -\frac{1}{ac-b^2}(cx^2-2bxy+ay^2)$$
+$$\sigma_B^2 - \sigma_A^2 = \frac{1}{ac-b^2}(cx^2-2bxy+ay^2) - \frac{x^2}{a} = \frac{1}{a(ac-b^2)}(bx-ay)^2 \geq 0$$
+
