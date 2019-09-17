@@ -168,6 +168,9 @@ $$\sigma^{*2} = \frac{1}{\sum_i w_i}W'\Sigma W = 1$$
 Therefore, $Y^*\sim N(0,1)$.
 
 ### (b)
+We can observe that each $Y_i$ is independent and normal distributed, i.e. $Y_i \sim N(0, 1/w_i)$. Moreover, $\sqrt{w_i}Y_i \sim N(0,1)$ is a standard normal distribution. The square of the standard normal distribution follows the $\chi_1^2$ distribution with 1 degree of freedom. Therefore, 
+$$\sum_{i=1}^n w_iY_i^2 \sim \chi_n^2$$
+which is the $\chi^2$ distribution with $n$ degrees of freedom. 
 
 
 ## 2.12
