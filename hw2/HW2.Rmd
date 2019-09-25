@@ -1,0 +1,13 @@
+---
+title: "STSCI 7170 Homework 2"
+author: "Yen-Lin Chen (yc2253@cornell.edu)"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## test

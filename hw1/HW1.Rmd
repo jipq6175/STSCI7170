@@ -254,5 +254,5 @@ a & b\\
 b & c\end{array}\right]^{-1}\left[\begin{array}{c}
 x\\
 y\end{array}\right] = \Sigma_{11} -\frac{1}{ac-b^2}(cx^2-2bxy+ay^2)$$
-$$\sigma_B^2 - \sigma_A^2 = \frac{1}{ac-b^2}(cx^2-2bxy+ay^2) - \frac{x^2}{a} = \frac{1}{a(ac-b^2)}(bx-ay)^2 \geq 0$$
+$$\sigma_B^2 - \sigma_A^2 = -\frac{1}{ac-b^2}(cx^2-2bxy+ay^2) + \frac{x^2}{a} = -\frac{1}{a(ac-b^2)}(bx-ay)^2 \leq 0$$
 
