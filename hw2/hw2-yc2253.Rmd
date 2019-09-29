@@ -1,0 +1,85 @@
+---
+title: "STSCI 7170 Homework 2"
+author: "Yen-Lin Chen (yc2253@cornell.edu)"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Problem 1
+
+Suppose that rank$(A)=a$ and $B \in \mathbb{R}^{m\times n}$. We can write the quadratic form $Y'AY = Z'DZ$ where $Z = P'\Sigma^{-\frac{1}{2}}Y \sim N_n(P'\Sigma^{-\frac{1}{2}}\mu, I_n)$ and $\Sigma^{\frac{1}{2}}A\Sigma^{\frac{1}{2}} = PDP'$ by spectral decomposition. $D$ is a diagonal with $d_{ii} \neq 0 \quad \forall i \in \{1,2,\dots,a\}$. 
+
+Moreover, $BY = B\Sigma^{\frac{1}{2}}PZ = MZ$ where $M =  B\Sigma^{\frac{1}{2}}P$.
+
+$$A\Sigma B' = 0 \iff B\Sigma A=0\\ \iff B\Sigma^{\frac{1}{2}}\Sigma^{\frac{1}{2}}A\Sigma^{\frac{1}{2}} = 0 \\ \iff B\Sigma^{\frac{1}{2}}PDP' = 0 \\ \iff MD = 0$$
+$$D = \begin{bmatrix}
+D_a & 0 \\
+0 & 0
+\end{bmatrix}; \quad M = \begin{bmatrix}
+M_1 & M_2 \end{bmatrix},
+$$
+where $M_1 \in \mathbb{R}^{m\times a}$ and $M_2 \in \mathbb{R}^{m \times (n-a)}$
+$$MD = 0 \iff M_1D_a =0 \iff M_1 = 0 \iff M = \begin{bmatrix}
+0 & M_2 \end{bmatrix}$$
+$$Y'AY = \sum_{j=1}^a\lambda_jz_j^2; \quad (BY)_i = \sum_{j=n-a+1}^nm_{ij}z_j$$
+Because $z_i$'s are independent, $Y'AY$ and $BY$ are independent. 
+
+## Problem 2
+
+Suppose the positive semi-definite symmetric matrix $A$ has rank $a$, then $A$ has $a$ non-zero eigenvalues $\lambda_1, \lambda_2, \dots, \lambda_a > 0$ and $\lambda_i = 0$ $\forall i \in \{a+1, \dots, n\}$. We can write the spectra decomposition of $A$ as $A = PDP'$ where the columns of $P$ are $a$ orthonormal vectors: $P = (p_1, p_2, \dots, p_n) \in \mathbb{R}^{n\times n}$. Therefore, 
+$$A = \sum_{k=1}^n \lambda_kp_kp_k' = \sum_{k=1}^a \lambda_kp_kp_k'$$
+Or equivalently, 
+$$a_{ij} = \sum_{k=1}^n\lambda_kp_{ki}p_{kj} = \sum_{k=1}^a\lambda_kp_{ki}p_{kj}$$
+where $p_{ki}$ is the $i$\textsuperscript{th} element of the $k$\textsuperscript{th} columns of $P$.
+
+### a
+
+$$a_{ii} = \sum_{k=1}^n\lambda_kp_{ki}^2 \geq 0$$
+because $\lambda_k \geq 0$. 
+
+### b
+
+If
+$$a_{ii} = \sum_{k=1}^n\lambda_kp_{ki}^2 = \sum_{k=1}^a\lambda_kp_{ki}^2 = 0 $$
+Because $\lambda_k > 0 \quad \forall k=1,2,\dots, a$, $p_{ki} = 0 \quad \forall k=1,2,\dots, a$. 
+$$\forall i\neq j \quad a_{ij} = \sum_{k=1}^a\lambda_kp_{ki}p_{kj} = 0$$
+
+
+## Problem 3
+
+
+
+## Moser 2.5
+
+
+
+## Moser 2.10
+
+
+
+## Moser 3.3
+
+
+
+## Moser 3.15
+
+
+
+## Moser 3.17
+
+
+
+## Moser 4.5
+
+
+
+
+
+
+
+
