@@ -37,12 +37,12 @@ Or equivalently,
 $$a_{ij} = \sum_{k=1}^n\lambda_kp_{ki}p_{kj} = \sum_{k=1}^a\lambda_kp_{ki}p_{kj}$$
 where $p_{ki}$ is the $i$\textsuperscript{th} element of the $k$\textsuperscript{th} columns of $P$.
 
-### a
+### 2a
 
 $$a_{ii} = \sum_{k=1}^n\lambda_kp_{ki}^2 \geq 0$$
 because $\lambda_k \geq 0$. 
 
-### b
+### 2b
 
 If
 $$a_{ii} = \sum_{k=1}^n\lambda_kp_{ki}^2 = \sum_{k=1}^a\lambda_kp_{ki}^2 = 0 $$
