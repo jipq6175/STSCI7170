@@ -56,9 +56,39 @@ $$\forall i\neq j \quad a_{ij} = \sum_{k=1}^a\lambda_kp_{ki}p_{kj} = 0$$
 
 ## Moser 2.5
 
+Let $\mu = (\mu_1, \mu_2, \dots, \mu_A)'$ and since $Y_{ijk} = \mu_i + S_{ij} + T_{ijk}$ we can write 
+
+$$Y = (\mu \otimes 1_s \otimes 1_t) + (I_a \otimes I_s \otimes 1_t)S + (I_a \otimes I_s \otimes I_t)T$$
+where $S \sim N_{as}(0_{as}, \sigma_S^2I_{as})$ and $T \sim N_{ast}(0_{ast}, \sigma_T^2I_{ast})$. Therefore, we have the following. 
+
+$$E[Y] = \mu \otimes 1_s \otimes1_t$$
+
+$$\Sigma = (I_a \otimes I_s \otimes 1_t)\sigma_S^2I_{as}(I_a \otimes I_s \otimes 1'_t) + (I_a \otimes I_s \otimes I_t)\sigma_T^2I_{ast}(I_a \otimes I_s \otimes I_t)$$ 
+$$\Sigma = \sigma_S^2(I_a \otimes I_s \otimes 1_t1'_t) + \sigma_T^2I_{ast}$$
+
+### a
+
+$\bar{Y}_i = (\bar{Y}_{1..}, \bar{Y}_{2..}, \dots, \bar{Y}_{a..})' = MY$ where $M = I_a \otimes(\frac{1}{s}1'_s) \otimes (\frac{1}{t}1'_t) = \frac{1}{st} I_a \otimes 1'_s \otimes 1'_t$. Therefore, $\bar{Y}_i \sim N_a(\mu, M\Sigma M')$.
+
+$$M\Sigma M' = \frac{\sigma_S^2}{s^2t^2}(I_a \otimes1'_s1_s \otimes1'_t1_t) + \frac{\sigma_T^2}{s^2t^2}(I_a \otimes1'_s1_s \otimes1'_t1_t)$$
+$$M\Sigma M' = \left(\frac{\sigma_S^2 + \sigma_T^2}{st} \right)I_a$$
+
+
+### b
+$(\bar{Y}_{11.}-\bar{Y}_{1..}, \dots, \bar{Y}_{1s.}-\bar{Y}_{1..}, \dots, \bar{Y}_{a1.}-\bar{Y}_{a..}, \dots, \bar{Y}_{as.}-\bar{Y}_{a.}) = KY \in \mathbb{R}^{as}$ where 
+
+$$KY = \left(I_a \otimes I_s \otimes\frac{1}{t}1'_t \right)Y - \left(I_a \otimes \frac{1}{s}1_s1'_s \otimes \frac{1}{t}1'_t \right)Y = \left(I_a \otimes C_s \otimes \frac{1}{t}1'_t\right)Y$$
+Therefore, $KY \sim N_{as}(KE[Y], K\Sigma K')$
+
+$$KE[Y] = K(\mu \otimes 1_s \otimes 1_t) = 0_{as}$$
+
+$$K\Sigma K' = \sigma_S^2 \left( I_a \otimes C_sI_sC_s \otimes\frac{1}{t^2}1'_t1_t1'_t1_t \right) + \sigma_T^2 \left(I_a \otimes C_sI_sC_s\otimes\frac{1}{t^2}1'_t1_t \right)$$
+$$K\Sigma K' = \left(\sigma_S^2 + \frac{\sigma_T^2}{t} \right)(I_a \otimes C_s)$$
+
 
 
 ## Moser 2.10
+
 
 
 
