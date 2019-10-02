@@ -54,6 +54,8 @@ $$\forall i\neq j \quad a_{ij} = \sum_{k=1}^a\lambda_kp_{ki}p_{kj} = 0$$
 
 
 
+
+
 ## Moser 2.5
 
 Let $\mu = (\mu_1, \mu_2, \dots, \mu_A)'$ and since $Y_{ijk} = \mu_i + S_{ij} + T_{ijk}$ we can write 
@@ -89,16 +91,120 @@ $$K\Sigma K' = \left(\sigma_S^2 + \frac{\sigma_T^2}{t} \right)(I_a \otimes C_s)$
 
 ## Moser 2.10
 
+We have $Y=X\beta+E$ where $\beta$ is an unknown constant vector and $E\sim N_n(0_n, \sigma^2I_n)$. The only randomness comes from the vector $E$. 
+
+### a
+
+$$\hat{\beta} = (X'X)^{-1}X'Y = (X'X)^{-1}X'(X\beta + E) = \beta + (X'X)^{-1}X'E = \beta + ME$$
+where $M = (X'X)^{-1}X'$. Therefore, since $E$ is normal, we have $\hat{\beta} \sim N_p(\beta, \sigma^2MM')$. Because $(X'X)^{-1}$ exists, $X'X$ must be non-singular, i.e. rank$(X'X) = p$ and $p < n$. Moreover, $(X'X)^{-1}$ is symmetric.  
+
+$$MM' = (X'X)^{-1}X'X\left((X'X)^{-1} \right)' = (X'X)^{-1}$$
+$$\hat{\beta} \sim N_p\left(\beta, \sigma^2(X'X)^{-1} \right)$$
 
 
+### b
+
+We can do singular value decomposition (SVD) of $X$, i.e. $X = U\Sigma V'$ where $U \in \mathbb{R}^{n\times n}$ and $V \in \mathbb{R}^{p\times p}$ with $U'U = I_n$ and $V'V = I_p$. $\Sigma \in \mathbb{R}^{n\times p}$ and since we know that $p < n$, 
+
+$$\Sigma = \begin{bmatrix} \Sigma_1\\ 0 \end{bmatrix}$$
+where $\Sigma_1$ is $p \times p$ diagonal matrix. $X'X = V\Sigma'\Sigma V' = V \Sigma_1^2V'$ is nonsingular if and only if all the diagonal elements of $\Sigma_1$ are nonzero. Additionally, $(X'X)^{-1} = V \Sigma_1^{-2}V'$ 
+
+Therefore, 
+
+$$\text{Cov}(X\hat{\beta}) = \sigma^2X(X'X)^{-1}X' = \sigma^2U\begin{bmatrix}
+\Sigma_1 \\
+0 \end{bmatrix}V'V\Sigma_1^{-2} V'V \begin{bmatrix} \Sigma_1 & 0 \end{bmatrix}U'$$
+
+$$\text{Cov}(X\hat{\beta}) = \sigma^2 U \begin{bmatrix} 
+I_p & 0 \\
+0 & 0_{n-p} \end{bmatrix} U'$$
+
+As a result, $\text{rank}(\text{Cov}(\hat{Y})) = \text{rank}(\text{Cov}(X\hat{\beta})) = p$
 
 ## Moser 3.3
 
+Construct the A-matrices as the following. 
+
+$$A_1 = \bar{J}_a \otimes \bar{J}_s \otimes \bar{J}_t \quad \text{rank}(A_1) = n_1 = 1$$
+
+$$A_2 = C_a \otimes \bar{J}_s \otimes \bar{J}_t \quad \text{rank}(A_2) = n_2 = a-1$$
+$$A_3 = \bar{J}_a \otimes C_s \otimes \bar{J}_t \quad \text{rank}(A_3) = n_3 = s-1$$
+
+$$A_4 = C_a \otimes C_s \otimes \bar{J}_t \quad \text{rank}(A_4) = n_4 = (a-1)(s-1) = as -a-s+1$$
+
+$$A_5 = I_a \otimes I_s \otimes C_t \quad \text{rank}(A_5) = n_5 = as(t-1) = ast-as$$
+
+And the assumptions of Bhat's lemma are satisfied: $\sum_{i=1}^5 A_i = I_{ast}$ and $\sum_{i=1}^5n_i=ast$.
+
+Previously, in Moser 2.5, we have 
+
+$$\text{Cov}(Y) = \Sigma = t\sigma_S^2(I_a \otimes I_s \otimes \bar{J}_t) + \sigma_T^2I_{ast}$$
+
+$$\Sigma = (t\sigma_S^2 + \sigma_T^2)\sum_{i=1}^4A_i + \sigma_T^2A_5$$
+
+
+### a
+
+$$V_1 = Y'(I_a \otimes C_s \otimes \bar{J}_t) Y = Y'(A_3+A_4)Y$$
+
+As a result, $Y'(A_3+A_4)Y \sim (t\sigma_S^2 + \sigma_T^2)\chi^2_{a(s-1)}(\delta_1)$ where 
+
+$$\delta_1 = \frac{1}{2}(t\sigma_S^2 + \sigma_T^2)^{-1}(\mu \otimes 1_s \otimes 1_t)'(I_a\otimes C_s \otimes \bar{J}_t)(\mu \otimes 1_s \otimes 1_t) = 0$$
+
+$$V_1 \sim (t\sigma_S^2 + \sigma_T^2)\chi^2_{a(s-1)}(0)$$
+
+### b
+$$V_2 = Y'(I_a \otimes I_s \otimes C_t)Y = Y'A_5Y$$
+So, $Y'A_5Y \sim \sigma_T^2\chi^2_{as(t-1)}(\delta_2)$ where
+
+$$\delta_2 = \frac{1}{2}\sigma_T^{-2}(\mu \otimes 1_s \otimes 1_t)'(I_a\otimes I_s \otimes C_t)(\mu \otimes 1_s \otimes 1_t) = 0$$
+
+$$V_2 \sim \sigma_T^2\chi^2_{as(t-1)}(0)$$
+
+
+### c
+
+Combining $V_1$ and $V_2$, we have the following directly. 
+
+$$\frac{V_1/[a(s-1)]}{V_2/[as(t-1)]} \sim \frac{t\sigma_S^2 + \sigma_T^2}{\sigma_T^2} F_{a(s-1), as(t-1)}(0)$$
 
 
 ## Moser 3.15
 
+### a
 
+With one $i$ fixed, and $y_i = (Y_{i1}, Y_{i2})'$ we have the following.
+
+$$\text{E}(y_i) = \begin{bmatrix} \mu_1 & \mu_2 \end{bmatrix}' $$
+
+$$\mu = 1_n \otimes \begin{bmatrix} 
+\mu_1 \\
+\mu_2 \end{bmatrix}$$
+
+
+$$\text{Cov}(y_i) = \sigma^2\begin{bmatrix}
+1 & \rho \\
+\rho & 1 \end{bmatrix} = \sigma^2\left[(1+2\rho)I_2 - 2\rho C_2 \right]$$ 
+
+Therefore, $\Sigma = I_n \otimes \text{Cov}(y) = \sigma^2\left[ (1+2\rho)(I_n \otimes I_n) -2\rho(I_n\otimes C_2) \right]$
+
+
+### b
+
+Let $y = (Y_{i1}, Y_{i2})'$ and we can write $D_i = Y_{i1}-Y_{i2} = My_i$ where $M = \begin{bmatrix} 1 & -1 \end{bmatrix}'$. The distribution of $D-i$ can be found: $D_i \sim N(\mu_2-\mu_1, M\text{Cov}(y_i)M')$, where
+
+$$M\text{Cov}(y_i)M' = \sigma^2 M\begin{bmatrix}
+1 & \rho \\
+\rho & 1 \end{bmatrix}M' = 2\sigma^2(1-\rho)$$
+
+Therefore, $D = (D_1, D_2, \dots, D_n)'$ is a random vector $D \sim N_n((\mu_2-\mu_1)1_n, 2\sigma^2(1-\rho)I_n)$.
+
+$$\bar{D} = \frac{1}{n}1'_nD \sim N\left( \mu_2-\mu_1, \frac{2}{n}\sigma^2(1-\rho) \right)$$
+
+$$\sum_{i=1}^n (D_i - \bar{D})^2 = (n-1)S_D^2 = D'C_nD \sim 2\sigma^2(1-\rho)\chi_{n-1}^2(0)$$
+By using the definition of t-distribution, 
+
+$$\frac{\bar{D}/\sqrt{\frac{1}{n}2\sigma^2(1-\rho)}}{\sqrt{\frac{1}{2\sigma^2(1-\rho)}\frac{1}{n-1}\sum_{i=1}^n(D_i-\bar{D})^2}} = \frac{\bar{D}}{\left(\frac{S_D}{\sqrt{n}} \right)} \sim T_{n-1}(\mu_2-\mu_1)$$
 
 ## Moser 3.17
 
