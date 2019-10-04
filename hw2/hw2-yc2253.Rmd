@@ -208,6 +208,28 @@ $$\frac{\bar{D}/\sqrt{\frac{1}{n}2\sigma^2(1-\rho)}}{\sqrt{\frac{1}{2\sigma^2(1-
 
 ## Moser 3.17
 
+### a
+
+Let $\sigma_1 = \sigma_2 = \sigma$. From the corvariance matrix, $\Sigma$, $Y_{ij}$'s are independent. $\bar{Y}_{1.} \sim N(\mu_1, \sigma^2/n_1)$ and $\bar{Y}_{2.} \sim N(\mu_2, \sigma^2/n_2)$. Therefore, 
+
+$$\bar{Y}_{1.} - \bar{Y}_{2.} \sim N \left( \mu_2-\mu_1, \sigma^2\left(\frac{1}{n_1}+\frac{1}{n_2} \right)\right)$$
+Moreover, the term in the denominator can be separated into two: 
+
+$$i=1 \quad S_1^2 = \sum_{j=1}^{n_1}(Y_{1j}-\bar{Y}_{1.})^2 \sim \sigma^2\chi_{n_1-1}^2(0)$$
+
+$$i=2 \quad S_2^2 = \sum_{j=1}^{n_2}(Y_{2j}-\bar{Y}_{2.})^2 \sim \sigma^2\chi_{n_2-1}^2(0)$$
+
+Since $S_1^2$ and $S_2^2$ are independent, $S_1^2 + S_2^2 \sim \chi_{n_1+n_2-2}^2(0)$
+
+According to the definition of t-distribution, we can write
+
+$$\frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ \sigma^2(\frac{1}{n_1}+\frac{1}{n_2})}{\frac{1}{\sigma^2}(S_1^2+S_2^2)/(n_1+n_2-2)} = \frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ (\frac{1}{n_1}+\frac{1}{n_2})}{(S_1^2+S_2^2)/(n_1+n_2-2)} \sim T_{n_1+n_2-2}(\mu_1-\mu_2)$$
+
+
+### b
+
+
+
 
 
 ## Moser 4.5
