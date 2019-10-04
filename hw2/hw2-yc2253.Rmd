@@ -300,4 +300,11 @@ $$\text{E}(Y'A_3Y) = \sigma_{BT}^2 + \frac{n(\mu_1-\mu_2)^2}{2\sigma_{BT}^2}$$
 $$\text{E}(Y'A_4Y) = \sigma_{BT}^2(n-1)$$
 
 
-$$\text{E}\left( \sum_{i}\sum_{j}Y_{ij}^2 \right)= \sum_{k=1}^4 \text{E}(Y'A_iY) = $$
+$$\text{E}\left( \sum_{i}\sum_{j}Y_{ij}^2 \right)= \sum_{k=1}^4 \text{E}(Y'A_iY) = n\left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right) + n\left[\frac{(\mu_1+\mu_2)^2}{\sigma_B^2 + 2\sigma_{BT}^2} + \frac{(\mu_1-\mu_2)^2}{2\sigma_{BT}^2} \right]$$
+
+
+
+
+
+
+
