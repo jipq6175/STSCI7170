@@ -149,7 +149,7 @@ $$V_1 = Y'(I_a \otimes C_s \otimes \bar{J}_t) Y = Y'(A_3+A_4)Y$$
 
 As a result, $Y'(A_3+A_4)Y \sim (t\sigma_S^2 + \sigma_T^2)\chi^2_{a(s-1)}(\delta_1)$ where 
 
-$$\delta_1 = \frac{1}{2}(t\sigma_S^2 + \sigma_T^2)^{-1}(\mu \otimes 1_s \otimes 1_t)'(I_a\otimes C_s \otimes \bar{J}_t)(\mu \otimes 1_s \otimes 1_t) = 0$$
+$$\delta_1 = (t\sigma_S^2 + \sigma_T^2)^{-1}(\mu \otimes 1_s \otimes 1_t)'(I_a\otimes C_s \otimes \bar{J}_t)(\mu \otimes 1_s \otimes 1_t) = 0$$
 
 $$V_1 \sim (t\sigma_S^2 + \sigma_T^2)\chi^2_{a(s-1)}(0)$$
 
@@ -157,7 +157,7 @@ $$V_1 \sim (t\sigma_S^2 + \sigma_T^2)\chi^2_{a(s-1)}(0)$$
 $$V_2 = Y'(I_a \otimes I_s \otimes C_t)Y = Y'A_5Y$$
 So, $Y'A_5Y \sim \sigma_T^2\chi^2_{as(t-1)}(\delta_2)$ where
 
-$$\delta_2 = \frac{1}{2}\sigma_T^{-2}(\mu \otimes 1_s \otimes 1_t)'(I_a\otimes I_s \otimes C_t)(\mu \otimes 1_s \otimes 1_t) = 0$$
+$$\delta_2 = \sigma_T^{-2}(\mu \otimes 1_s \otimes 1_t)'(I_a\otimes I_s \otimes C_t)(\mu \otimes 1_s \otimes 1_t) = 0$$
 
 $$V_2 \sim \sigma_T^2\chi^2_{as(t-1)}(0)$$
 
@@ -221,9 +221,9 @@ $$i=2 \quad S_2^2 = \sum_{j=1}^{n_2}(Y_{2j}-\bar{Y}_{2.})^2 \sim \sigma^2\chi_{n
 
 Since $S_1^2$ and $S_2^2$ are independent, $S_1^2 + S_2^2 \sim \chi_{n_1+n_2-2}^2(0)$
 
-According to the definition of t-distribution, we can write
+According to the definition of F-distribution, we can write
 
-$$\frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ \sigma^2(\frac{1}{n_1}+\frac{1}{n_2})}{\frac{1}{\sigma^2}(S_1^2+S_2^2)/(n_1+n_2-2)} = \frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ (\frac{1}{n_1}+\frac{1}{n_2})}{(S_1^2+S_2^2)/(n_1+n_2-2)} \sim T_{n_1+n_2-2}(\mu_1-\mu_2)$$
+$$\frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ \sigma^2(\frac{1}{n_1}+\frac{1}{n_2})}{\frac{1}{\sigma^2}(S_1^2+S_2^2)/(n_1+n_2-2)} = \frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ (\frac{1}{n_1}+\frac{1}{n_2})}{(S_1^2+S_2^2)/(n_1+n_2-2)} = V \sim F_{1, n_1+n_2-2}(\mu_1-\mu_2)$$
 
 
 ### b
@@ -234,10 +234,70 @@ $$\frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ \sigma^2(\frac{1}{n_1}+\frac{1}{n_2})}{
 
 ## Moser 4.5
 
+The model for the problem is 
+
+$$Y_{ij} = \mu_j + B_{i} + (BT)_{ij} \quad \text{i.e.} \quad Y = (1_n\otimes\mu) + (I_n\otimes1_2)\tilde{B} + (I_n \otimes I_2)\tilde{BT}$$
+
+where $\tilde{B} \sim N_n(0, \sigma_B^2I_n) \in \mathbb{R}^n$ and $\tilde{BT} \sim N_{2n}(0, \sigma_{BT}^2I_{2n}) \in \mathbb{R}^{2n}$ are the random vectors corresponding to $B$ and $BT$. The $\mu$ here is $(\mu_1, \mu_2)'$, representing the $j$\textsuperscript{th} level of fixed factors. 
+
+### a
+
+$$E[Y] = 1_n\otimes\mu $$
 
 
+$$\Sigma = \text{Cov}(Y) = (I_n\otimes1_2)(\sigma_B^2I_n)(I_n\otimes 1'_2) + (I_n\otimes I_2)(\sigma_{BT}^2I_{2n})(I_n\otimes I_2) \\ 
+=\frac{1}{2}\sigma_B^2(I_n \otimes \bar{J}_2)+\sigma_{BT}^2(I_n\otimes I_2)$$
 
 
+### b
+
+The ANOVA table is shown in Table 1. 
+
+\begin{table}[]
+\caption{The ANOVA table for Moser 4.5.(b) and (c). $\delta_1$ and $\delta_2$ can be found in the main text.}
+\centering
+\begin{tabular}{ccccc}
+Name & Formula &$A_i$ & rank & $Y'A_iY$ Dist.\\
+\hline
+ &$\sum_i\sum_j(\bar{Y}_{..})^2 $ &$A_1 = \bar{J}_n\otimes\bar{J}_2$ &  $1$ & $\left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)\chi_1^2(\delta_1)$ \\
+ &$\sum_i\sum_j(\bar{Y}_{i.} - \bar{Y}_{..})^2 $ &$A_2 = C_n\otimes\bar{J}_2$ & $n-1$ & $\left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)\chi_{n-1}^2(0)$  \\
+ &$\sum_i\sum_j(\bar{Y}_{.j} - \bar{Y}_{..})^2 $ &$A_3 = \bar{J}_n\otimes C_2$ & $1$ & $\sigma_{BT}^2 \chi_{1}^2(\delta_3)$   \\
+ &$\sum_i\sum_j(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..})^2 $ &$A_4 = C_n \otimes C_2$ & $n-1$ & $\sigma_{BT}^2 \chi_{n-1}^2(0)$  \\
+\hline
+ &$\sum_i\sum_j(Y_{ij})^2 $ &$A_5 = I_n \otimes I_2$ & $2n$ & N/A
+\end{tabular}
+\end{table}
 
 
+### c
 
+In order to determine the distribution of $Y'A_iY$, we need to apply Bhat's lemma.
+
+$$\Sigma =\frac{1}{2}\sigma_B^2(I_n \otimes \bar{J}_2)+\sigma_{BT}^2(I_n\otimes I_2) = \left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)(A_1 + A_2) + \sigma_{BT}^2(A_3+A_4)$$
+All the $A_i$-matrices satisfy the assumption of Bhat's lemma $\forall i=1,2,3,4$. 
+
+$$Y'A_iY \sim c_i\chi^2_{\text{rank}(A_i)}(\delta_i) \quad \text{where} \quad \delta_i = \frac{1}{c_i}\mu'A_i\mu$$
+
+$$Y'A_1Y \sim \left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)\chi_1^2(\delta_1) \quad \delta_1 = \frac{n(\mu_1+\mu_2)^2}{\sigma_B^2 + 2\sigma_{BT}^2}$$
+
+$$Y'A_2Y \sim \left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)\chi_{n-1}^2(\delta_2) \quad \delta_2 = 0$$
+
+$$Y'A_3Y \sim \sigma_{BT}^2 \chi_{1}^2(\delta_3) \quad \delta_3 = \frac{n(\mu_1-\mu_2)^2}{2\sigma_{BT}^2}$$
+
+$$Y'A_4Y \sim \sigma_{BT}^2 \chi_{n-1}^2(\delta_4) \quad \delta_4 = 0$$
+
+### d
+
+If a random variable $X$ has $\chi^2$ distribution with $d$ degrees of freedom and noncentrality $\delta$, $\text{E}(cX) = cd + \delta$ for some constant $c$. 
+
+$$\text{E}(Y'A_1Y) = \left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right) + \frac{n(\mu_1+\mu_2)^2}{\sigma_B^2 + 2\sigma_{BT}^2}$$
+
+$$\text{E}(Y'A_2Y) = \left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)(n-1)$$
+
+$$\text{E}(Y'A_3Y) = \sigma_{BT}^2 + \frac{n(\mu_1-\mu_2)^2}{2\sigma_{BT}^2}$$
+
+
+$$\text{E}(Y'A_4Y) = \sigma_{BT}^2(n-1)$$
+
+
+$$\text{E}\left( \sum_{i}\sum_{j}Y_{ij}^2 \right)= \sum_{k=1}^4 \text{E}(Y'A_iY) = $$
