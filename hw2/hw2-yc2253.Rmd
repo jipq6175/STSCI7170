@@ -52,8 +52,47 @@ $$\forall i\neq j \quad a_{ij} = \sum_{k=1}^a\lambda_kp_{ki}p_{kj} = 0$$
 
 ## Problem 3
 
+### 3a
+
+$$Y_{ijk} = \mu_0 + B_i + \tau_j + (B\tau)_{ij} + E_{ijk}$$
+In the above model, $\mu_0$ is the average response, $B_i$ is the random effect on subject $i$, $\tau_j$ is the fixed effect by drug $j$, $(B\tau)_{ij}$ is the random interaction effect between subject $i$ and drug $j$ and finally, $E_{ijk}$ is the random error of the experiment. Note that $i = 1,2,\dots, 5=s$, $j=1, 2=d$ and $k = 1, 2, 3, 4=t$.
+
+### 3b
+
+1. $\mu_0$ is a fixed factor because it is the average response of the experiment.
+2. $\tau_j$ is fixed with respect to two drugs. 
+3. $B_i \sim N(0, \sigma_B^2)$ is random to account for the noises of different subjects.
+4. $(B \tau)_{ij} \sim N(0, \sigma_{B\tau}^2)$ is random to account for different subjects' responses to the drugs. 
+5. $E_{ijk} \sim N(0, \sigma_E^2)$ is the noise of the experiment. 
+
+### 3c
+
+1. $\mu$: $A_1 = \bar{J}_s \otimes \bar{J}_d \otimes \bar{J}_t$
+2. $B$: $A_2 = C_s \otimes \bar{J}_d \otimes \bar{J}_t$
+3. $\tau$: $A_3 = \bar{J}_s \otimes C_d \otimes \bar{J}_t$
+4. $(B\tau)_{ij}$: $A_4 = C_s \otimes C_d \otimes \bar{J}_t$
+5. $E_{ijk}$: $A_5 = I_s\otimes I_d \otimes C_t$
+
+$$\sum_{i=1}^5 A_i = I_{sdt} \quad \sum_{i=1}^5 \text{rank}(A_i) = 1+(s-1)+(d-1)+(d-1)(s-1)+sd(t-1) = sdt$$
 
 
+### 3d
+
+$$Y = (1_s \otimes 1_d \otimes 1_t)\mu_0 + (I_s\otimes1_d\otimes 1_t)\tilde{B} + (1_s\otimes I_d \otimes 1_t)\tilde{\tau} + (I_s\otimes I_d \otimes 1_t)\tilde{B\tau} + (I_s\otimes I_d\otimes I_t)\tilde{E}$$
+where $\tilde{B} \sim N_s(0_s, \sigma_B^2I_s)$, $\tilde{B\tau} \sim N_{sd}(0_{sd}, \sigma_{B\tau}^2I_{sd})$ and $\tilde{E} \sim N_{sdt}(0_{sdt}, \sigma_E^2I_{sdt})$
+
+### 3e
+
+$$E[Y] = (1_s \otimes 1_d \otimes 1_t)\mu_0 + (1_s\otimes \tilde{\tau} \otimes 1_t)$$
+where $\tilde{\tau} = \begin{bmatrix} \tau_1 & \tau_2 \end{bmatrix}'$.
+
+$$\text{Var}(Y) = \Sigma = (dt\sigma_B^2)(I_s \otimes \bar{J}_d\otimes \bar{J}_t) + (t\sigma_{B\tau}^2)(I_s\otimes I_d\otimes \bar{J}_t) + \sigma_E^2(I_s\otimes I_d \otimes I_t)$$
+
+
+### 3f
+
+$$\Sigma = (dt\sigma_B^2)(A_1+A_2) + (t\sigma_{B\tau}^2)\left(\sum_{i=1}^4A_i \right) + \sigma_E^2 \left(\sum_{i=1}^5A_i \right)$$
+$$\Sigma = (dt\sigma_B^2+t\sigma_{B\tau}^2+\sigma_E^2)(A_1+A_2) + (t\sigma_{B\tau}^2+\sigma_E^2)(A_3+A_4) + \sigma_E^2A_5$$
 
 
 ## Moser 2.5
@@ -256,13 +295,13 @@ The ANOVA table is shown in Table 1.
 \begin{table}[]
 \caption{The ANOVA table for Moser 4.5.(b) and (c). $\delta_1$ and $\delta_2$ can be found in the main text.}
 \centering
-\begin{tabular}{ccccc}
-Name & Formula &$A_i$ & rank & $Y'A_iY$ Dist.\\
+\begin{tabular}{c|cccc}
+ & Formula &$A_i$ & rank & $Y'A_iY$ Dist.\\
 \hline
- &$\sum_i\sum_j(\bar{Y}_{..})^2 $ &$A_1 = \bar{J}_n\otimes\bar{J}_2$ &  $1$ & $\left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)\chi_1^2(\delta_1)$ \\
- &$\sum_i\sum_j(\bar{Y}_{i.} - \bar{Y}_{..})^2 $ &$A_2 = C_n\otimes\bar{J}_2$ & $n-1$ & $\left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)\chi_{n-1}^2(0)$  \\
- &$\sum_i\sum_j(\bar{Y}_{.j} - \bar{Y}_{..})^2 $ &$A_3 = \bar{J}_n\otimes C_2$ & $1$ & $\sigma_{BT}^2 \chi_{1}^2(\delta_3)$   \\
- &$\sum_i\sum_j(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..})^2 $ &$A_4 = C_n \otimes C_2$ & $n-1$ & $\sigma_{BT}^2 \chi_{n-1}^2(0)$  \\
+$\mu$ &$\sum_i\sum_j(\bar{Y}_{..})^2 $ &$A_1 = \bar{J}_n\otimes\bar{J}_2$ &  $1$ & $\left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)\chi_1^2(\delta_1)$ \\
+T &$\sum_i\sum_j(\bar{Y}_{i.} - \bar{Y}_{..})^2 $ &$A_2 = C_n\otimes\bar{J}_2$ & $n-1$ & $\left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right)\chi_{n-1}^2(0)$  \\
+$\tilde{B}$ &$\sum_i\sum_j(\bar{Y}_{.j} - \bar{Y}_{..})^2 $ &$A_3 = \bar{J}_n\otimes C_2$ & $1$ & $\sigma_{BT}^2 \chi_{1}^2(\delta_3)$   \\
+$\tilde{BT}$ &$\sum_i\sum_j(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..})^2 $ &$A_4 = C_n \otimes C_2$ & $n-1$ & $\sigma_{BT}^2 \chi_{n-1}^2(0)$  \\
 \hline
  &$\sum_i\sum_j(Y_{ij})^2 $ &$A_5 = I_n \otimes I_2$ & $2n$ & N/A
 \end{tabular}
@@ -303,8 +342,14 @@ $$\text{E}(Y'A_4Y) = \sigma_{BT}^2(n-1)$$
 $$\text{E}\left( \sum_{i}\sum_{j}Y_{ij}^2 \right)= \sum_{k=1}^4 \text{E}(Y'A_iY) = n\left(\frac{\sigma_B^2}{2}+\sigma_{BT}^2 \right) + n\left[\frac{(\mu_1+\mu_2)^2}{\sigma_B^2 + 2\sigma_{BT}^2} + \frac{(\mu_1-\mu_2)^2}{2\sigma_{BT}^2} \right]$$
 
 
+### e
+
+Since we have no information about $\sigma_B$ and $\sigma_{BT}$ for the hypothesis $H_0:$ $\mu_1 = \mu_2$, the distribution of the statistic must not depend on $\sigma_B$ and $\sigma_{BT}$ and should reflect $H_0$ and $H_1$ Therefore, define
+
+$$U = \frac{Y'A_3Y}{Y'A_4Y/(n-1)} \sim F_{1, n-1}\left(\frac{n(\mu_1-\mu_2)^2}{2\sigma_{BT}^2} \right)$$
 
 
+### f
 
-
+$$U = \frac{Y'A_3Y}{Y'A_4Y/(n-1)} = \frac{n\bar{D}^2}{\frac{1}{n-1}\sum_i\sum_j(Y_{ij} - Y_{i.} - Y_{.j} + Y_{..})^2} = \frac{n\bar{D}^2}{\frac{1}{n-1}\sum_i(D_i - \bar{D}_{.})^2} = \frac{\bar{D}^2}{S_D^2/n} = T^2$$
 
