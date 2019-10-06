@@ -267,6 +267,19 @@ $$\frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ \sigma^2(\frac{1}{n_1}+\frac{1}{n_2})}{
 
 ### b
 
+With $\sigma_1^2 \neq \sigma_2^2$ and let $\sigma_1=\sigma$, $\sigma_2 = \alpha\sigma$ where $\alpha \neq 1$, the following statistics has F-distribution.
+
+$$V' = \frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ (\frac{1}{n_1}+\frac{\alpha^2}{n_2})}{(S_1^2+S_2^2/\alpha^2)/(n_1+n_2-2)} \sim F_{1, n_1+n_2-2}(\mu_1-\mu_2)$$
+
+We would like to investigate the distribution of original statistic $V$. 
+
+$$V = \frac{(\bar{Y}_{1.} - \bar{Y}_{2.})^2/ (\frac{1}{n_1}+\frac{1}{n_2})}{(S_1^2+S_2^2)/(n_1+n_2-2)} \approx \sim cF_{1, d}(\mu_1-\mu_2)$$ 
+where $c$ is the approximate scaling factor of the F-distribution and $d$ is the equivalent second degree of freedom to account for the $V'\to V$ transformation. Consider the following two cases. 
+
+$\alpha > 1$. $c > 1$ and $d < n_1+n_2-2$. When $\sigma_2^2>\sigma_1^2$, the statistic $V$ is approximately a up-scaled F-distribution with equivalent second degrees of freedom fewer than $n_1+n_2-2$. 
+
+$\alpha < 1$. $c < 1$ and $d > n_1+n_2-2$. When $\sigma_2^2<\sigma_1^2$, the statistic $V$ is approximately a down-scaled F-distribution with equivalent second degrees of freedom more than $n_1+n_2-2$. 
+
 
 
 
