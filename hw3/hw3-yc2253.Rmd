@@ -1,0 +1,54 @@
+---
+title: "STSCI 7170 Homework 3"
+author: "Yen-Lin Chen (yc2253@cornell.edu)"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = TRUE,
+	warning = TRUE
+)
+```
+
+
+## Problem 1
+
+
+### 1a
+
+Let $Y_i = X_i^2$ and $Y = \sum_{i=1}^n Y_i$. If we can find the mgf of $Y_i$, $m_{Y_i}(t)$, the mgf of $Y$ is simply $m_{Y}(t) = \prod_{i=1}^nm_{Y_i}(t)$. 
+
+$$m_{Y_i}(t) = E\left[e^{tY_i}\right] = E\left[e^{tX_i^2}\right] = \int e^{tx^2}\frac{1}{\sqrt{2\pi}}e^{-(x-\mu_i)^2/2}dx = \frac{1}{\sqrt{2\pi}} \int \text{exp}\left[ \frac{-1}{2}\left((1-2t)x^2-2\mu_ix \right)-\frac{1}{2}\mu_i^2\right]dx$$ 
+$$ = \frac{1}{\sqrt{2\pi}}\int \text{exp}\left[ \frac{-1}{2}(1-2t)\left(x - \frac{\mu_i}{1-2t} \right)^2\right]\text{exp}\left(\frac{t\mu_i^2}{1-2t} \right)dx = \frac{1}{\sqrt{2\pi}}\text{exp}\left(\frac{t\mu_i^2}{1-2t} \right)\sqrt{\frac{2\pi}{1-2t}}$$
+$$m_{Y_i}(t) = (1-2t)^{-1/2}\text{exp}\left(\frac{t\mu_i^2}{1-2t} \right)$$
+$$m_{Y}(t) = \prod_{i=1}^n m_{Y_i}(t) = (1-2t)^{-n/2}\text{exp}\left(\frac{t\delta}{1-2t} \right) \quad \delta = \sum_{i=1}^n\mu_i^2 \quad t < \frac{1}{2}$$
+
+
+### 1b
+
+
+
+
+
+## Problem 2
+
+
+
+
+
+
+
+## Moser 5.2
+
+
+
+
+## Moser 5.9 
+
+
+
+
+## Moser 5.12
