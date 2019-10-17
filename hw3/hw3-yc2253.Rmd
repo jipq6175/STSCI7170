@@ -43,12 +43,54 @@ $$m_{Y}(t) = \prod_{i=1}^n m_{Y_i}(t) = (1-2t)^{-n/2}\text{exp}\left(\frac{t\del
 
 ## Moser 5.2
 
+### a
+
+$\hat{\beta} = (X'X)^{-1}X'Y$ is an unbiased estimator for $\beta$ because
+
+$$E[\hat{\beta}] = (X'X)^{-1}X'E[Y] = (X'X)^{-1}X'X\beta = \beta$$
+### b
+Since $VX = XF$ where $F$ is non-singular, we have $X'V = F'X'$ and $X' = F'X'V^{-1}$. Therefore, 
+$$\hat{\beta} = (X'X)^{-1}X'Y = (F'X'V^{-1}X)^{-1}F'X'V^{-1}Y = (X'V^{-1}X)^{-1}(F')^{-1}F'X'V^{-1}Y = (X'V^{-1}X)^{-1}X'V^{-1}Y = \hat{\beta}_W$$
 
 
 
 ## Moser 5.9 
 
+### a
+$$Y_{ij} = a + b_ix_j + E_{ij}$$
+Let $Y = (Y_{11}-a, \dots, Y_{1n}-a, Y_{21}-a, \dots, Y_{2n}-a)' = (\tilde{Y_{1}}', \tilde{Y_2}')'$, we can rewrite the linear model in the matrix form. 
 
+$$Y = (I_2 \otimes\tilde{x})\tilde{\beta} + (I_2\otimes I_n)\tilde{E}$$
+where $\tilde{x} = (x_1, x_2, \dots, x_n)'$, $\tilde{\beta} = (b_1, b_2)'$ and $\tilde{E}\sim N_{2n}(0, \sigma^2I_{2n})$. We can identify the regression matrix $X = I_2\otimes \tilde{x}$. The least square estimator of $\tilde{\beta}$ is $\hat{\beta} = (X'X)^{-1}X'Y$. 
+
+$$X'X = (I_2 \otimes \tilde{x}')(I_2\otimes \tilde{x}) = (\tilde{x}'\tilde{x})I_2 \Longrightarrow (X'X)^{-1} = (\tilde{x}'\tilde{x})^{-1}I_2$$
+$$X'Y = (I_2\otimes \tilde{x}')Y = \begin{bmatrix}
+\tilde{x}' & 0 \\ 
+0 & \tilde{x}' \end{bmatrix}\begin{bmatrix}
+\tilde{Y_1} \\
+\tilde{Y_2} \end{bmatrix} = \begin{bmatrix}
+\tilde{x}'\tilde{Y_1}\\
+\tilde{x}'\tilde{Y_2} \end{bmatrix}$$
+
+$$\hat{\beta} = \begin{bmatrix}
+b_1 \\
+b_2 \end{bmatrix} = (\tilde{x}'\tilde{x})^{-1}\begin{bmatrix}
+\tilde{x}'\tilde{Y_1}\\
+\tilde{x}'\tilde{Y_2} \end{bmatrix}$$
+
+Let $t = (1, -1)'$, the BLUE of $b_1 - b_2 = t'\tilde{\beta}$ is $t'\hat{\beta}$
+
+$$t'\hat{\beta} = (\tilde{x}'\tilde{x})^{-1}\left(\tilde{x}'\tilde{Y_1} - \tilde{x}'\tilde{Y_2} \right) = (\tilde{x}'\tilde{x})^{-1}\sum_{j=1}^nx_j(Y_{1j}-Y_{2j}) = \frac{\sum_{j=1}^nx_j(Y_{1j}-Y_{2j})}{\sum_{j=1}^nx_j^2}$$
+The absence of constant $a$ is because $a\sum_{j=1}^nx_j = 0$. 
+
+
+### b
+
+We know that $\text{Cov}(\hat{\beta}) = \sigma^2(X'X)^{-1} = \sigma^2(\tilde{x}'\tilde{x})^{-1}I_2$. 
+
+$$\text{Cov}(t'\hat{\beta}) = t'\text{Cov}(\hat{\beta})t = \frac{2\sigma^2}{\tilde{x}'\tilde{x}} = \frac{2\sigma^2}{\sum_{j=1}^nx_j^2}$$
 
 
 ## Moser 5.12
+
+
