@@ -48,7 +48,9 @@ $$m_{Y}(t) = \prod_{i=1}^n m_{Y_i}(t) = (1-2t)^{-n/2}\text{exp}\left(\frac{t\del
 $\hat{\beta} = (X'X)^{-1}X'Y$ is an unbiased estimator for $\beta$ because
 
 $$E[\hat{\beta}] = (X'X)^{-1}X'E[Y] = (X'X)^{-1}X'X\beta = \beta$$
+
 ### b
+
 Since $VX = XF$ where $F$ is non-singular, we have $X'V = F'X'$ and $X' = F'X'V^{-1}$. Therefore, 
 $$\hat{\beta} = (X'X)^{-1}X'Y = (F'X'V^{-1}X)^{-1}F'X'V^{-1}Y = (X'V^{-1}X)^{-1}(F')^{-1}F'X'V^{-1}Y = (X'V^{-1}X)^{-1}X'V^{-1}Y = \hat{\beta}_W$$
 
@@ -93,4 +95,50 @@ $$\text{Cov}(t'\hat{\beta}) = t'\text{Cov}(\hat{\beta})t = \frac{2\sigma^2}{\til
 
 ## Moser 5.12
 
+### a
+
+Since $\mathbf{1}_a'X^* = 0$, each column of $X^*$ is centered and $\text{rank}(X^*) = p-1$. We know the inclusion of replicates is equivalent to averaging with respect to replicates to start with. Therefore, $A_1$, $A_2$ and $A_3 (A_{lof})$ take the form $(?? \otimes \bar{J_n})$. 
+
+$$\beta_0: \quad A_1 = \bar{J_a}\otimes\bar{J_n} \quad \text{rank}(A_1) = 1$$
+$$\beta: \quad A_2 = X^*(X^*{'}X^*)^{-1}X^*{'} \otimes \bar{J_n} \quad \text{rank}(A_2) = p-1$$
+$$\text{Lack of Fit}: \quad A_{lof}=A_3 = \left(I_a - \bar{J_a} -X^*(X^*{'}X^*)^{-1}X^*{'} \right)\otimes \bar{J_n} \quad \text{rank}(A_3) = a-p > 1$$
+$$\text{Pure Error}: \quad A_{pe} = A_4 = I_a\otimes C_n \quad \text{rank}(A_4) = a(n-1)$$
+Moreover, 
+
+$$\sum_{i=1}^4 A_i = I_a \otimes I_n = I_{an} \quad \sum_{i=1}^4 \text{rank}(A_i) = an$$
+
+### b
+
+Let $\mu = E[Y] = \beta_0(\mathbf{1}_a\otimes\mathbf{1}_n) + (X^*\otimes\mathbf{1}_n)\beta$ and $M = X^*(X^*{'}X^*)^{-1}X^*{'}$. Therefore, $M\bar{J} = 0$ and $M^2 = M$. The $A$-matrices satisfy the assumptions of Bhat's lemma with $A_iA_j = \delta_{ij}A_i$. Now, in order to apply Bhat's lemma
+
+$$\text{Cov}(Y) = \Sigma = I_a \otimes \left(\sigma_1^2I_n + n\sigma_2 \bar{J_n} \right) = \sigma_1^2\sum_{i=1}^4A_i + n\sigma_2^2\sum_{i=1}^3A_i = \left(\sigma_1^2 + n\sigma_2^2 \right)\sum_{i=1}^3A_i + \sigma_1^2A_4$$
+Therefore, by Bhat's lemma, 
+
+$$Y'A_1Y \sim \left(\sigma_1^2 + n\sigma_2^2 \right)\chi_1^2(\delta_1)$$
+$$\delta_1 = \left(\sigma_1^2 + n\sigma_2^2 \right)^{-1}\left[\beta_0^2(\mathbf{1}_a'\otimes\mathbf{1}_n')(\bar{J_a}\otimes\bar{J_n})(\mathbf{1}_a\otimes\mathbf{1}_n) \right] = \frac{an\beta_0^2}{\sigma_1^2 + n\sigma_2^2}$$
+$$Y'A_2Y \sim \left(\sigma_1^2 + n\sigma_2^2 \right)\chi_{p-1}^2(\delta_2)$$
+$$\delta_2 = \left(\sigma_1^2 + n\sigma_2^2 \right)^{-1}\left[\beta'(X^*{'}\otimes\mathbf{1}_n')(M\otimes\bar{J_n})(X^*\otimes\mathbf{1}_n)\beta \right] = \frac{n\beta'X^*{'}X^*\beta}{\sigma_1^2 + n\sigma_2^2}$$
+$$Y'A_3Y \sim \left(\sigma_1^2 + n\sigma_2^2 \right)\chi_{a-p}^2(\delta_3) \quad \delta_3=0$$
+$$\because \quad \mathbf{1}_a'(I_a - M - \bar{J_a})\mathbf{1}_a = 0 \quad \text{and} \quad X^*{'}(I_a - M - \bar{J_a})X^*=0$$
+$$Y'A_3Y \sim n\sigma_2^2 \chi_{a(n-1)}^2(\delta_4) \quad \delta_4=0$$
+
+### c
+
+$$\Sigma = \sigma_1^2(I_a \otimes I_n) + n\sigma_2^2(I_a\otimes\bar{J_n})$$
+$Y'A_iY$ and $Y'A_jY$ are independent if and only if $A_i\Sigma A_j=0$.
+
+$$A_i\Sigma A_j = \sigma_1^2 A_iA_j + n\sigma_2^2A_i(I_a\otimes\bar{J_n})A_j$$
+For $i\neq j$, the first term is always zero. The second term is zero when either $i=4$ or $j=4$. Moreover, for $i=1,2,3$ and $i\neq j$ the second term is zero because 
+$$M\bar{J_a} = 0, \quad (I_a-M-\bar{J_a})\bar{J_a} = 0, \quad (I_a-M-\bar{J_a})M = 0$$
+As a result, $Y'A_iY$ and $Y'A_jY$ are mutually independent since $\forall i,j \in \{1,2,3,4\}$ and $i \neq j$, $A_i\Sigma A_j = 0$.
+
+
+### d
+
+Observe that $\delta_2$ involves the vector $\beta$, which will show up in the noncentrality of the F-distribution. Define a statistic
+
+$$F = \frac{Y'A_2Y/(p-1)}{Y'A_3Y/(a-p)} \sim F_{p-1, a-p}(\delta_2)$$
+where 
+$$\delta_2 = \frac{n\beta'X^*{'}X^*\beta}{\sigma_1^2 + n\sigma_2^2}$$
+Under null hypothesis $H_0: \beta=0$, $F \sim F_{p-1, a-p}(0)$. 
 
