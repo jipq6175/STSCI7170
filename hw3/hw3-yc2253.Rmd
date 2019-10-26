@@ -29,7 +29,21 @@ $$m_{Y}(t) = \prod_{i=1}^n m_{Y_i}(t) = (1-2t)^{-n/2}\text{exp}\left(\frac{t\del
 
 ### 1b
 
+We first show that $f_{Y}(y, \delta)$ is a proper pdf and then $E[e^{tY}]$ is the same as the result in 1a.
 
+$$\int_0^\infty f_{Y}(y, \delta)dy = \int_0^\infty \sum_{k=0}^\infty \frac{(\frac{\delta}{2})^ke^{-\delta/2}}{k!} \frac{y^{(n+2k)/2}e^{-y/2}}{\Gamma[(n+2k)/2]2^{(n+2k)/2}}$$
+$$ = \sum_{k=0}^\infty \frac{(\frac{\delta}{2})^ke^{-\delta/2}}{k!} \frac{1}{\Gamma[(n+2k)/2]2^{(n+2k)/2}}\int_0^\infty y^{(n+2k)/2}e^{-y/2}dy$$
+$$ = \sum_{k=0}^\infty \frac{(\frac{\delta}{2})^ke^{-\delta/2}}{k!} \frac{1}{\Gamma[(n+2k)/2]2^{(n+2k)/2}}\Gamma[(n+2k)/2]2^{(n+2k)/2}$$
+$$ = \sum_{k=0}^\infty \frac{(\frac{\delta}{2})^ke^{-\delta/2}}{k!} = e^{\delta/2}e^{-\delta/2}=1$$
+
+Moreover, 
+
+$$E[e^{tY}] = \int_0^\infty \sum_{k=0}^\infty \frac{(\frac{\delta}{2})^ke^{-\delta/2}}{k!} \frac{y^{(n+2k)/2}e^{-(\frac{1}{2}-t)y}}{\Gamma[(n+2k)/2]2^{(n+2k)/2}} \quad t<\frac{1}{2}$$
+$$ = \sum_{k=0}^\infty \frac{(\frac{\delta}{2})^ke^{-\delta/2}}{k!} \frac{1}{\Gamma[(n+2k)/2]2^{(n+2k)/2}}\frac{\Gamma[(n+2k)/2]}{(\frac{1}{2}-t)^{(n+2k)/2}}$$
+$$ = \sum_{k=0}^\infty \frac{(\frac{\delta}{2})^ke^{-\delta/2}}{k!} \frac{1}{(1-2t)^{\frac{n}{2}+k}} = e^{-\delta/2}(1-2t)^{-n/2} \sum_{k=0}^\infty\frac{1}{k!}\left( \frac{\delta}{2(1-2t)}\right)^k$$
+$$ = e^{-\delta/2}(1-2t)^{-n/2}e^{\frac{\delta}{2(1-2t)}} = (1-2t)^{-n/2}\text{exp}\left(\frac{t\delta}{1-2t} \right)$$
+
+Therefore, $f_{Y}(y, \delta)$ is the pdf for the variable $Y = \sum_{i=1}^n X_i^2$.
 
 
 
