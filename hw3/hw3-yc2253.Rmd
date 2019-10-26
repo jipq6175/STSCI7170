@@ -163,15 +163,54 @@ serum$subject = 1:n %x% rep(1, d) %x% rep(1,t)
 serum$drug = rep(1, n) %x% 1:d %x% rep(1,t)
 serum$time = rep(1, n) %x% rep(1, d) %x% 1:t
 
-ml = lmer(response ~ 1 + (1|subject)
-                       + (drug)
-                       + (time)
-                       + (drug|subject) 
-                       + (time|subject)
-                       + (drug|time), data=serum, REML=FALSE)
-
+ml = lmer(response ~ 1 + (1|subject) + (drug) + (time)
+                       + (1|subject:drug) 
+                       + (1|subject:time)
+                       + (drug:time)
+                       , data=serum, REML=FALSE)
+summary(ml)
 ```
 
+```
+Warning message:
+In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.0178682 (tol = 0.002, component 1)
+  
+Linear mixed model fit by maximum likelihood  ['lmerMod']
+Formula: response ~ 1 + (1 | subject) + (drug) + (time) + (1 | subject:drug) +      (1 | subject:time) + (drug:time)
+   Data: serum
+
+     AIC      BIC   logLik deviance df.resid 
+    69.5     83.0    -26.7     53.5       32 
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.59168 -0.41244 -0.03616  0.28838  1.70536 
+
+Random effects:
+ Groups       Name        Variance Std.Dev.
+ subject:time (Intercept) 0.1068   0.3268  
+ subject:drug (Intercept) 0.1023   0.3198  
+ subject      (Intercept) 0.0229   0.1513  
+ Residual                 0.0817   0.2858  
+Number of obs: 40, groups:  subject:time, 20; subject:drug, 10; subject, 5
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  1.42500    0.51134   2.787
+drug        -0.10700    0.29990  -0.357
+time        -0.14180    0.14357  -0.988
+drug:time    0.07100    0.08085   0.878
+
+Correlation of Fixed Effects:
+          (Intr) drug   time  
+drug      -0.880              
+time      -0.702  0.569       
+drug:time  0.593 -0.674 -0.845
+convergence code: 0
+Model failed to converge with max|grad| = 0.0178682 (tol = 0.002, component 1)
+
+```
 
 
 

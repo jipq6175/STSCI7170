@@ -38,10 +38,9 @@ serum$subject = 1:n %x% rep(1, d) %x% rep(1,t)
 serum$drug = rep(1, n) %x% 1:d %x% rep(1,t)
 serum$time = rep(1, n) %x% rep(1, d) %x% 1:t
 
-ml = lmer(response ~ 1 + (1|subject)
-                       + (drug)
-                       + (time)
-                       + (drug|subject) 
-                       + (time|subject)
-                       + (drug|time), data=serum, REML=FALSE)
+ml = lmer(response ~ 1 + (1|subject) + (drug) + (time)
+                       + (1|subject:drug) 
+                       + (1|subject:time)
+                       + (drug:time)
+                       , data=serum, REML=FALSE)
 
