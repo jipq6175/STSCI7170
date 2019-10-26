@@ -115,7 +115,7 @@ $$\text{ML}(\sigma_{E}^2) = \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} = \text{EMS}(\sigma
 
 $$\text{ML}(\sigma_{ST}^2) = \frac{1}{d}\left[\frac{Y'A_3^rY}{(n-1)(t-1)} - \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = \text{EMS}(\sigma_{ST}^2)$$
 
-$$\text{ML}(\sigma_S^2) = \frac{1}{t}\left[\frac{Y'A_2^rY}{(n-1)(d-1)} - \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = \text{EMS}(\sigma_S^2)$$
+$$\text{ML}(\sigma_{SD}^2) = \frac{1}{t}\left[\frac{Y'A_2^rY}{(n-1)(d-1)} - \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = \text{EMS}(\sigma_{SD}^2)$$
 
 $$\text{ML}(\sigma_S^2) = \frac{1}{dt}\left[ \frac{Y'A_1^rY}{n-1} -\frac{Y'A_2^rY}{(n-1)(d-1)} - \frac{Y'A_3^rY}{(n-1)(t-1)} + \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = \text{EMS}(\sigma_S^2)$$
 
@@ -124,9 +124,9 @@ $$\text{ML}(\sigma_S^2) = \frac{1}{dt}\left[ \frac{Y'A_1^rY}{n-1} -\frac{Y'A_2^r
 Construct the $A$ matrices. 
 
 ```r
-n = 4;
+n = 5;
 d = 2;
-t = 5;
+t = 4;
 
 Jn = rep(1, n) %*% t(rep(1, n)) / n
 Cn = diag(n) - Jn
@@ -144,6 +144,36 @@ A6 = Cn %x% Jd %x% Ct
 A7 = Jn %x% Cd %x% Ct
 A8 = Cn %x% Cd %x% Ct
 ```
+
+$$\text{ML}(\sigma_{E}^2) = \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} = 0.09944708$$
+
+$$\text{ML}(\sigma_{ST}^2) = \frac{1}{d}\left[\frac{Y'A_3^rY}{(n-1)(t-1)} - \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = 0.001075417$$
+
+$$\text{ML}(\sigma_{SD}^2) = \frac{1}{t}\left[\frac{Y'A_2^rY}{(n-1)(d-1)} - \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = 0.1274217$$
+
+$$\text{ML}(\sigma_S^2) = \frac{1}{dt}\left[ \frac{Y'A_1^rY}{n-1} -\frac{Y'A_2^rY}{(n-1)(d-1)} - \frac{Y'A_3^rY}{(n-1)(t-1)} + \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = 0.06218708$$
+
+### 2c
+
+```r
+serum =  data.frame(matrix(ncol = 4, nrow = n*d*t))
+colnames(serum) = c("response", "subject", "drug", "time")
+serum$response = Y
+serum$subject = 1:n %x% rep(1, d) %x% rep(1,t)
+serum$drug = rep(1, n) %x% 1:d %x% rep(1,t)
+serum$time = rep(1, n) %x% rep(1, d) %x% 1:t
+
+ml = lmer(response ~ 1 + (1|subject)
+                       + (drug)
+                       + (time)
+                       + (drug|subject) 
+                       + (time|subject)
+                       + (drug|time), data=serum, REML=FALSE)
+
+```
+
+
+
 
 
 
