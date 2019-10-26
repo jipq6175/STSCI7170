@@ -49,7 +49,101 @@ Therefore, $f_{Y}(y, \delta)$ is the pdf for the variable $Y = \sum_{i=1}^n X_i^
 
 ## Problem 2
 
+$$Y_{ijk} = \mu_0 + S_i+D_j+SD_{ij}+T_k+ST_{ik} +DT_{jk}+E_{ijk}$$
+where $i \in \{1,2,\dots,n=5\}$, $j \in \{1, d=2 \}$ and $k \in \{1,2,3,t=4\}$. The subject is the random factor. We can rewrite the model as 
 
+$$Y = \mu_0(\mathbf{1}_n\otimes \mathbf{1}_d\otimes\mathbf{1}_t)+(I_n\otimes \mathbf{1}_d\otimes\mathbf{1}_t)\tilde{S}+(\mathbf{1}_n\otimes I_d\otimes\mathbf{1}_t)\tilde{D}+(I_n\otimes I_d\otimes\mathbf{1}_t)\tilde{SD}$$
+
+$$+ (\mathbf{1}_n\otimes \mathbf{1}_d\otimes I_t)\tilde{T} + (I_n\otimes \mathbf{1}_d\otimes I_t)\tilde{ST} + (\mathbf{1}_n\otimes I_d\otimes I_t)\tilde{DT} + (I_n \otimes I_d \otimes I_t)\tilde{E}$$
+where $\tilde{S} \sim N_n(0, \sigma_S^2I_n)$, $\tilde{SD} \sim N_{nd}(0, \sigma_{SD}^2I_{nd})$, $\tilde{ST} \sim N_{nt}(0, \sigma_{ST}^2I_{nt})$ and $\tilde{E} \sim N_{ndt}(0, \sigma_E^2I_{ndt})$. 
+
+The A-matrices are: 
+
+1. $\mu_0$: $A_1 = \bar{J}_n \otimes \bar{J}_d \otimes \bar{J}_t = A_1^f$, $\text{rank}(A_1) = 1$
+2. $\tilde{S}$: $A_2 = C_n \otimes \bar{J}_d \otimes \bar{J}_t = A_1^r$, $\text{rank}(A_2) = n-1$
+3. $\tilde{D}$: $A_3 = \bar{J}_n \otimes C_d \otimes \bar{J}_t = A_2^f$, $\text{rank}(A_3) = d-1$
+4. $\tilde{SD}$: $A_4 = C_n \otimes C_d \otimes \bar{J}_t = A_2^r$, $\text{rank}(A_4) = (n-1)(d-1)$
+5. $\tilde{T}$: $A_5 = \bar{J}_n \otimes \bar{J}_d \otimes C_t = A_3^f$, $\text{rank}(A_5) = t-1$
+6. $\tilde{ST}$: $A_6 = C_n \otimes \bar{J}_d \otimes C_t = A_3^r$, $\text{rank}(A_6) = (n-1)(t-1)$
+7. $\tilde{DT}$: $A_7 = \bar{J}_n \otimes C_d \otimes C_t = A_4^f$, $\text{rank}(A_7) = (d-1)(t-1)$
+8. $\tilde{E}$: $A_7 = C_n \otimes C_d \otimes C_t = A_4^r$, $\text{rank}(A_8) = (n-1)(d-1)(t-1)$
+
+Let $Z_i = A_i^f+A_i^r$. 
+
+$$I_{ndt} = \sum_{i=1}^8A_i = \sum_{i=1}^4 \left(A_i^r+A_i^f\right) = \sum_{i=1}^4Z_i$$
+$$\Sigma = dt\sigma_S^2(I_n\otimes \bar{J}_d\otimes \bar{J}_t) + t\sigma_{SD}^2(I_n\otimes I_d\otimes \bar{J}_t)+d\sigma_{ST}^2(I_n\otimes \bar{J}_d\otimes I_t) + \sigma_E^2(I_n\otimes I_d\otimes I_t)$$
+
+$$ = \left(dt\sigma_S^2+ t\sigma_{SD}^2 + d\sigma_{ST}^2+\sigma_E^2\right)(A_1+A_2)+\left( t\sigma_{SD}^2+\sigma_E^2 \right)(A_3+A_4)+\left(d\sigma_{ST}^2+\sigma_E^2 \right)(A_5+A_6)+\sigma_E^2(A_7+A_8)$$
+
+
+$$ \Sigma = \left(dt\sigma_S^2+ t\sigma_{SD}^2 + d\sigma_{ST}^2+\sigma_E^2\right)Z_1+\left( t\sigma_{SD}^2+\sigma_E^2 \right)Z_2+\left(d\sigma_{ST}^2+\sigma_E^2 \right)Z_3+\sigma_E^2Z_4$$
+
+$$\mu = E[Y] = Y = \mu_0(\mathbf{1}_n\otimes \mathbf{1}_d\otimes\mathbf{1}_t)+(\mathbf{1}_n\otimes I_d\otimes\mathbf{1}_t)\tilde{D}+(\mathbf{1}_n\otimes \mathbf{1}_d\otimes I_t)\tilde{T} + (\mathbf{1}_n\otimes I_d\otimes I_t)\tilde{DT}$$
+
+
+
+### 2a
+
+Under this setup, the expected mean squares (EMS) is defined as
+
+$$\text{EMS}_i = \frac{Y'A_iY}{\text{rank}(A_i)}= c_i + \frac{\mu'A_i\mu}{\text{rank}(A_i)}$$
+
+$$ \text{EMS}_2 = \frac{Y'A_2Y}{n-1} = dt\sigma_S^2+ t\sigma_{SD}^2 + d\sigma_{ST}^2+\sigma_E^2  \quad \because\mu'A_2\mu=0$$
+$$ \text{EMS}_4 = \frac{Y'A_4Y}{(n-1)(d-1)} = t\sigma_{SD}^2+\sigma_E^2  \quad \because\mu'A_4\mu=0$$
+$$\text{EMS}_6 = \frac{Y'A_6Y}{(n-1)(t-1)} = d\sigma_{ST}^2+\sigma_E^2  \quad \because\mu'A_6\mu=0$$
+$$\text{EMS}_8 = \frac{Y'A_8Y}{(n-1)(d-1)(t-1)} = \sigma_E^2  \quad \because\mu'A_8\mu=0$$
+$$\text{EMS}(\sigma_{E}^2) = \frac{Y'A_8Y}{(n-1)(d-1)(t-1)}$$
+$$\text{EMS}(\sigma_{ST}^2) = \frac{1}{d}\left[\frac{Y'A_6Y}{(n-1)(t-1)} - \frac{Y'A_8Y}{(n-1)(d-1)(t-1)} \right]$$
+
+$$\text{EMS}(\sigma_{SD}^2) = \frac{1}{t}\left[\frac{Y'A_4Y}{(n-1)(d-1)} - \frac{Y'A_8Y}{(n-1)(d-1)(t-1)} \right]$$
+
+$$\text{EMS}(\sigma_S^2) = \frac{1}{dt}\left[ \frac{Y'A_2Y}{n-1} -\frac{Y'A_4Y}{(n-1)(d-1)} - \frac{Y'A_6Y}{(n-1)(t-1)} + \frac{Y'A_8Y}{(n-1)(d-1)(t-1)} \right]$$
+
+
+The maximum likelihood (ML) estimate is defined as
+
+$$\text{ML}_i = \frac{Y'A_i^rY}{\text{rank}(Z_i)} = \frac{c_i\text{rank}(A_i^r)}{\text{rank}(Z_i)} + \frac{\mu'A_i^r\mu}{\text{rank}(Z_i)} = \frac{\text{EMS}_i\text{rank}(A_i^r)}{\text{rank}(Z_i)}$$
+
+$$\text{ML}_1 = \frac{Y'A_1^rY}{n} = \frac{n-1}{n}\left(dt\sigma_S^2+ t\sigma_{SD}^2 + d\sigma_{ST}^2+\sigma_E^2 \right)$$
+
+$$ \text{ML}_2 = \frac{Y'A_2^rY}{n(d-1)} =  \frac{n-1}{n}\left(t\sigma_{SD}^2+\sigma_E^2 \right)$$
+
+$$\text{ML}_3 = \frac{Y'A_3^rY}{n(t-1)}= \frac{n-1}{n}\left( d\sigma_{ST}^2+\sigma_E^2\right)$$
+
+$$ \text{ML}_4 = \frac{Y'A_4^rY}{n(d-1)(t-1)} = \frac{n-1}{n}\sigma_E^2$$
+$$\text{ML}(\sigma_{E}^2) = \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} = \text{EMS}(\sigma_{E}^2)$$
+
+$$\text{ML}(\sigma_{ST}^2) = \frac{1}{d}\left[\frac{Y'A_3^rY}{(n-1)(t-1)} - \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = \text{EMS}(\sigma_{ST}^2)$$
+
+$$\text{ML}(\sigma_S^2) = \frac{1}{t}\left[\frac{Y'A_2^rY}{(n-1)(d-1)} - \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = \text{EMS}(\sigma_S^2)$$
+
+$$\text{ML}(\sigma_S^2) = \frac{1}{dt}\left[ \frac{Y'A_1^rY}{n-1} -\frac{Y'A_2^rY}{(n-1)(d-1)} - \frac{Y'A_3^rY}{(n-1)(t-1)} + \frac{Y'A_4^rY}{(n-1)(d-1)(t-1)} \right] = \text{EMS}(\sigma_S^2)$$
+
+### 2b
+
+Construct the $A$ matrices. 
+
+```r
+n = 4;
+d = 2;
+t = 5;
+
+Jn = rep(1, n) %*% t(rep(1, n)) / n
+Cn = diag(n) - Jn
+Jd = rep(1, d) %*% t(rep(1, d)) / d
+Cd = diag(d) - Jd
+Jt = rep(1, t) %*% t(rep(1, t)) / t
+Ct = diag(t) - Jt
+
+A1 = Jn %x% Jd %x% Jt
+A2 = Cn %x% Jd %x% Jt
+A3 = Jn %x% Cd %x% Jt
+A4 = Cn %x% Cd %x% Jt
+A5 = Jn %x% Jd %x% Ct
+A6 = Cn %x% Jd %x% Ct
+A7 = Jn %x% Cd %x% Ct
+A8 = Cn %x% Cd %x% Ct
+```
 
 
 
