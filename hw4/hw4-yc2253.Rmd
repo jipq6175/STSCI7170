@@ -70,11 +70,38 @@ $$\delta = (\sqrt{\Sigma^-}\mu)'K\sqrt{\Sigma^-}\mu = \mu'\Sigma^-\mu$$
 
 ## Moser 6.4
 
+The $100(1-\gamma)\%$ confidence interval of $h'\beta$ is
+
+$$h'\hat{\beta}\pm t_{n-p}^{\gamma/2}\sqrt{\frac{1}{n-p}\left[h'(X'X)^{-1}h\right]Y'\left[I-X(X'X)^{-1}X' \right]Y}$$
 
 
+### a
+
+Let $L$ be the length of the confidence interval, we have
+
+$$L^2 = 4\left(t_{n-p}^{\gamma/2} \right)^2\left[\frac{h'(X'X)^{-1}h}{n-p}\right]Y'\left[I-X(X'X)^{-1}X' \right]Y$$
+The only random vector is $Y \sim N_n(X\beta, \sigma^2I_n)$. Let $A_1 = X(X'X)^{-1}X'$ and $A_2 = I - X(X'X)^{-1}X'$, both $A_1$ and $A_2$ are idenpotent with rank $p$ and $n-p$ respectively. Moreover, $\sigma^2I_n = \sigma^2(A_1+A_2)$. By Bhat's lemma, we have 
+
+$$Y'A_2Y \sim \sigma^2\chi_{n-p}^2(\delta_2) \quad \delta_2 = (X\beta)'A_2X\beta = 0$$
+Therefore, 
+
+$$L^2 \sim C\chi_{n-p}^2(0) \quad \text{where} \quad C=4\sigma^2\left(t_{n-p}^{\gamma/2} \right)^2\left[\frac{h'(X'X)^{-1}h}{n-p}\right]$$
 
 
+### b
 
+First, we find $\hat{\beta} = (X'X)^{-1}X'Y = X'Y = (5, 10, 15)' = (\hat{\beta_1}, \hat{\beta_2}, \hat{\beta_3})'$. We know that $100(1-\gamma)\%$ condifence interval of $h'\beta$ is
+
+$$h'\hat{\beta}\pm t_{n-p}^{\gamma/2}\sqrt{\frac{1}{n-p}\left[h'(X'X)^{-1}h\right]Y'\left[I-X(X'X)^{-1}X' \right]Y}$$ 
+$$ = h'\hat{\beta}\pm t_{17}^{\gamma/2}\sqrt{\frac{1}{17}h'h\left[Y'Y -(X'Y)'(X'Y) \right]} = h'\hat{\beta}\pm t_{17}^{\gamma/2}\sqrt{\frac{68}{17}h'h} = h'\hat{\beta}\pm 2\left(t_{17}^{\gamma/2}\right)\sqrt{h'h}$$
+Now using $95\%$ condifence interval, $t_{17}^{\gamma/2}$ is the $97.5$ quantile of t-distribution with $17$ degrees of freedom. $t_{17}^{2.5} = 2.1098$. The $95%$ condifence interval of $h'\beta$ is now
+
+$$h'\hat{\beta}\pm 4.2196\sqrt{h'h}$$
+The only thing we need to determine is $h$. 
+
+$$h = (1, 0, 0) \quad h'\beta = \beta_1 = \hat{\beta_1}\pm4.2196 \Longrightarrow \text{CI}_{95}(\beta_1) = [0.7804, 9.2196]$$
+$$h = (1, 1, 0) \quad h'\beta = \beta_1+\beta_2 = \hat{\beta_1}+\hat{\beta_2}\pm4.2196\sqrt{2} \Longrightarrow \text{CI}_{95}(\beta_1+\beta_2) = [9.0326, 20.9674]$$
+$$h = (1, 0, -1) \quad h'\beta = \beta_1-\beta_3 = \hat{\beta_1}-\hat{\beta_3}\pm4.2196\sqrt{2} \Longrightarrow \text{CI}_{95}(\beta_1-\beta_3) = [-15.9674, -4.0326]$$
 
 ## Moser 6.7
 
@@ -107,10 +134,25 @@ $$\hat{\sigma}_{B}^2 = \frac{\hat{a_1} - \hat{a_2}}{2} = \frac{1}{2n}\left[\sum_
 Under $H_0: \mu_1=\mu_2$, the constraint is $H\beta=h=0$ where $H = (1, -1)$. Let $M = \frac{1}{n}(\mathbf{1}_n'\otimes I_2)$. $Y \sim N_{2n}(X\beta, \Sigma)$. Therefore 
 
 $$\hat{\beta} \sim N_2(\beta, M\Sigma M') \Longrightarrow H\hat{\beta} = \hat{\mu_1}-\hat{\mu_2} \sim N(H\beta, HM\Sigma M'H') \sim N(\mu_1-\mu_2, HM\Sigma M'H')$$
-$$HM\Sigma M'H' = \frac{1}{n^2}\left[(\mathbf{1}_n' \otimes (1,-1))2\sigma_B^2(I_n\otimes \bar{J}_2)(\mathbf{1}_n\otimes(1, -1)') + (\mathbf{1}_n' \otimes (1,-1))\sigma_{BT}^2(I_n\otimes I_2)(\mathbf{1}_n\otimes(1, -1)') \right] \\ = \frac{1}{n^2}\left(2\sigma_B^2\times n \times 0 + 2n\sigma_{BT}^2 \right) = \frac{2\sigma_{BT}^2}{n}$$
-Therefore, $H\hat{\beta} \sim N(\mu_1-\mu_2, 2\sigma_{BT}^2/n)$. We can construct the t-test:
+$$HM\Sigma M'H' = \frac{1}{n^2}\left[(\mathbf{1}_n' \otimes (1,-1))2\sigma_B^2(I_n\otimes \bar{J}_2)(\mathbf{1}_n\otimes(1, -1)') + (\mathbf{1}_n' \otimes (1,-1))\sigma_{BT}^2(I_n\otimes I_2)(\mathbf{1}_n\otimes(1, -1)') \right]$$
 
-$$T = \frac{\frac{1}{n}\sum_i (Y_{i1}-Y_{i2})}{\frac{1}{n}\sqrt{2\sum_i \sum_j \left(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..} \right)^2}} = \frac{\sum_i (Y_{i1}-Y_{i2})}{\sqrt{2\sum_i \sum_j \left(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..} \right)^2}} \sim T_{n-1}(\mu_1-\mu_2)$$
+$$HM\Sigma M'H' = \frac{1}{n^2}\left(2\sigma_B^2\times n \times 0 + 2n\sigma_{BT}^2 \right) = \frac{2\sigma_{BT}^2}{n}$$
+Therefore, $H\hat{\beta} \sim N(\mu_1-\mu_2, 2\sigma_{BT}^2/n)$. We can construct the following statistics:
+
+$$V = \frac{(H\hat{\beta})'[HM\Sigma M'H']^{-1}(H\hat{\beta})/1}{Y'(I-X(X'X)^{-1}X)Y/(2n-2)} = \frac{Y'(HM)'[HM\Sigma M'H']^{-1}HMY}{Y'(I-X(X'X)^{-1}X)Y/(2n-2)} \sim F_{1, 2n-2}(\delta)$$
+We have 
+
+$$(HM)'HM = \frac{1}{n^2}\left(\mathbf{1}_n\mathbf{1}_n' \otimes 2C_2 \right) = \frac{2}{n}(\bar{J}_n\otimes C_2)$$
+$$I - X(X'X)^{-1}X' = I-XM = I - (\bar{J}_n \otimes I_2) = C_n \otimes I_2$$
+Combining the avove 4 quantities, we have
+
+$$V = \frac{Y'(HM)'[HM\Sigma M'H']^{-1}HMY}{Y'(I-X(X'X)^{-1}X)Y/(2n-2)} = \frac{Y'(\bar{J}_n\otimes C_2)Y/\sigma_{BT}^2}{Y'(C_n\otimes I_2)Y/(2n-2)} \sim F_{1, 2n-2}(\delta)$$
+Therefore, 
+
+$$\frac{Y'(\bar{J}_n\otimes C_2)Y}{Y'(C_n\otimes I_2)Y/(2n-2)} = \sigma_{BT}^2V \sim \sigma_{BT}^2F_{1, 2n-2}(\delta)$$
+Under $H_0:\mu_1=\mu_2$, $\delta = 0$. 
+
+
 
 
 
