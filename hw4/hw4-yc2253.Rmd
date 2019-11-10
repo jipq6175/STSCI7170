@@ -1,0 +1,116 @@
+---
+title: "STSCI 7170 Homework 4"
+author: "Yen-Lin Chen (yc2253@cornell.edu)"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Problem 1
+
+Let $X$ and $Y$ be two random variables and $a$ and $b$ be two scalars, we have 
+
+$$\text{Var}(aX+bY) = a^2\text{Var}(X) + b^2\text{Var}(Y) + 2ab\text{Cov}(X, Y)$$
+Therefore, given two unbiased estimates $\hat{\theta_1}$ and $\hat{\theta_2}$ and $\hat{\theta} = w\hat{\theta_1}+(1-w)\hat{\theta_2}$, the variance of the new estimate $\hat{\theta}$ is
+$$\text{Var}(\hat{\theta}) = w^2\text{Var}(\hat{\theta_1}) + (1-w)^2\text{Var}(\hat{\theta_2}) + 2w(1-w)\text{Cov}(\hat{\theta_1},\hat{\theta_2}) \\ 
+= w^2\sigma_1^2 + (1-w)^2\sigma_2^2 +2w(1-w)\sigma_{12}$$
+
+We want to minimize $\text{Var}(\hat{\theta})$. 
+
+$$\frac{d\text{Var}(\hat{\theta)}}{dw} = 2w\sigma_1^2-2(1-w)\sigma_2^2+2(1-2w)\sigma_{12} = 0$$
+
+$$w = \frac{\sigma_2^2 - \sigma_{12}}{\sigma_1^2+\sigma_2^2-2\sigma_{12}}$$
+If $\hat{\theta_1}$ and $\hat{\theta_2}$ are uncorrelated, i.e. $\sigma_{12}=0$, 
+
+$$w = \frac{\sigma_2^2}{\sigma_1^2+\sigma_2^2}$$
+
+
+
+## Problem 2
+
+
+$y \sim N_n(\mu, \Sigma)$ where $\Sigma \in \mathbb{R}^{n\times n}$ and $\text{rank}(\Sigma) = m < n$. We can rewrite $\Sigma = Q\Lambda Q'$ where 
+$$\Lambda = \begin{bmatrix} \Lambda_1 & 0_{m, n-m} \\
+0_{n-m, m} & 0_{n-m, n-m} \end{bmatrix} \quad \Lambda_1 = \text{diag}(\lambda_1, \lambda_2, \dots, \lambda_m) \in \mathbb{R}^{m\times m} \quad \lambda_i > 0$$
+
+The Moore-Penrose inverse of $\Sigma$ is $\Sigma^- = Q\Lambda^-Q'$ where
+
+$$\Lambda^- = \begin{bmatrix} \Lambda_1^{-1} & 0_{m, n-m} \\
+0_{n-m, m} & 0_{n-m, n-m} \end{bmatrix} \quad \Lambda_1^{-1} = \text{diag}(1/\lambda_1, 1/\lambda_2, \dots, 1/\lambda_m)$$
+
+Define 
+
+$$\sqrt{\Sigma^-} = Q\begin{bmatrix} \Lambda_1^{-1/2} & 0_{m, n-m} \\
+0_{n-m, m} & 0_{n-m, n-m} \end{bmatrix}Q'$$
+
+and $z = \sqrt{\Sigma^-}y \sim N_n(\sqrt{\Sigma^-}\mu, \sqrt{\Sigma^-}\Sigma\sqrt{\Sigma^-}) \sim N_n(\sqrt{\Sigma^-}\mu, K)$
+
+$$K = \sqrt{\Sigma^-}\Sigma\sqrt{\Sigma^-} = Q\begin{bmatrix} I_m & 0_{m, n-m} \\
+0_{n-m, m} & 0_{n-m, n-m} \end{bmatrix}Q' = \begin{bmatrix} I_m & 0_{m, n-m} \\
+0_{n-m, m} & 0_{n-m, n-m} \end{bmatrix}$$
+
+$K$ is idenpotent with rank $m$. Therefore, $z'Kz = z'z =  y'\sqrt{\Sigma^-}\sqrt{\Sigma^-}y = y'\Sigma^-y \sim \chi_m^2(\delta)$ where
+
+$$\delta = (\sqrt{\Sigma^-}\mu)'K\sqrt{\Sigma^-}\mu = \mu'\Sigma^-\mu$$
+
+
+
+
+## Problem 3
+
+
+
+
+
+
+
+## Moser 6.4
+
+
+
+
+
+
+
+## Moser 6.7
+
+$$Y_{ij} = \mu_j + B_i + (BT)_{ij} \quad i = 1,2,\dots, n \quad j=1,2$$
+$$Y = (\mathbf{1}_n \otimes I_2)\tilde{\mu} + (I_n \otimes \mathbf{1}_2)\tilde{B} + (I_n\otimes I_2)\tilde{BT}$$
+where $\tilde{B} \sim N_n(0, \sigma_B^2I_n)$ and $\tilde{BT} \sim N_{2n}(0, \sigma_{BT}^2I_{2n})$. We can write $Y = X\beta +E$ where $X = \mathbf{1}_n \otimes I_2$, $\beta = \tilde{\mu} = (\mu_1, \mu_2)'$ and $E \sim N_{2n}(0, \Sigma)$. 
+
+$$\Sigma = 2\sigma_B^2(I_n\otimes \bar{J}_2) + \sigma_{BT}^2(I_n\otimes I_2)$$
+Define the A-matrices for fixed and random factors: 
+
+$$A_1^f = \bar{J}_n \otimes \bar{J}_2 \quad \text{rank} = 1$$
+$$A_1^r = C_n \otimes \bar{J}_2 \quad \text{rank} = n-1$$
+$$A_2^f = \bar{J}_n \otimes C_2 \quad \text{rank} = 1$$
+$$A_2^r = C_n \otimes C_2 \quad \text{rank} = n-1$$
+
+$$\Sigma = 2\sigma_B^2(I_n\otimes \bar{J}_2) + \sigma_{BT}^2(I_n\otimes I_2) = (2\sigma_B^2+\sigma_{BT}^2)(A_1^f+A_1^r) + \sigma_{BT}^2(A_2^f+A_2^r)$$
+
+### a
+
+The maximum likelihood estimates are the following.
+
+$$\hat{\beta} = (X'X)^{-1}X'Y = \frac{1}{n}(\mathbf{1}_n'\otimes I_2)Y = (\hat{\mu_1}, \hat{\mu_2})'$$
+$$\hat{\mu_1} = \frac{1}{n}\sum_{i=1}^nY_{i1} \quad \hat{\mu_2} = \frac{1}{n}\sum_{i=1}^nY_{i2}$$
+$$\hat{a_2} = \hat{\sigma}_{BT}^2 = \frac{Y'A_2^rY}{n} = \frac{1}{n} \sum_i \sum_j \left(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..} \right)^2$$
+$$\hat{a_1} = 2\hat{\sigma}_{B}^2 + \hat{\sigma}_{BT}^2 = \frac{Y'A_1^rY}{n} = \frac{1}{n}\sum_i \left(\bar{Y}_{i.} - \bar{Y}_{..} \right)^2$$
+$$\hat{\sigma}_{B}^2 = \frac{\hat{a_1} - \hat{a_2}}{2} = \frac{1}{2n}\left[\sum_i \left(\bar{Y}_{i.} - \bar{Y}_{..} \right)^2 - \sum_i \sum_j \left(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..} \right)^2 \right]$$
+
+### b
+
+Under $H_0: \mu_1=\mu_2$, the constraint is $H\beta=h=0$ where $H = (1, -1)$. Let $M = \frac{1}{n}(\mathbf{1}_n'\otimes I_2)$. $Y \sim N_{2n}(X\beta, \Sigma)$. Therefore 
+
+$$\hat{\beta} \sim N_2(\beta, M\Sigma M') \Longrightarrow H\hat{\beta} = \hat{\mu_1}-\hat{\mu_2} \sim N(H\beta, HM\Sigma M'H') \sim N(\mu_1-\mu_2, HM\Sigma M'H')$$
+$$HM\Sigma M'H' = \frac{1}{n^2}\left[(\mathbf{1}_n' \otimes (1,-1))2\sigma_B^2(I_n\otimes \bar{J}_2)(\mathbf{1}_n\otimes(1, -1)') + (\mathbf{1}_n' \otimes (1,-1))\sigma_{BT}^2(I_n\otimes I_2)(\mathbf{1}_n\otimes(1, -1)') \right] \\ = \frac{1}{n^2}\left(2\sigma_B^2\times n \times 0 + 2n\sigma_{BT}^2 \right) = \frac{2\sigma_{BT}^2}{n}$$
+Therefore, $H\hat{\beta} \sim N(\mu_1-\mu_2, 2\sigma_{BT}^2/n)$. We can construct the t-test:
+
+$$T = \frac{\frac{1}{n}\sum_i (Y_{i1}-Y_{i2})}{\frac{1}{n}\sqrt{2\sum_i \sum_j \left(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..} \right)^2}} = \frac{\sum_i (Y_{i1}-Y_{i2})}{\sqrt{2\sum_i \sum_j \left(Y_{ij} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..} \right)^2}} \sim T_{n-1}(\mu_1-\mu_2)$$
+
+
+
