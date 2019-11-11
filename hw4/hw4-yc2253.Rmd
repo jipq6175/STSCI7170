@@ -82,17 +82,86 @@ the transformed responses are defined as $Y_{ij}^* = p_j'Y_i$. Note that $p_i'p_
 
 We can write $Y_i$ as the following. 
 
-$$Y_i = (\mu_0 + \gamma z_i)\mathbf{1}_t + B_i\mathbf{1}_t + E_i$$
-where $B_i \sim N(0, \sigma_b^2)$ and $E_i \sim N_t(0, \sigma_e^2I_t)$. Therefore, $Y_i \sim N_t\left[(\mu_0 + \gamma z_i)\mathbf{1}_t, \sigma_b^2\mathbf{1}_t\mathbf{1}_t' + \sigma_e^2I_t \right] \sim N_t\left[(\mu_0 + \gamma z_i)\mathbf{1}_t, t\sigma_b^2\bar{J_t} + \sigma_e^2I_t \right]$. Let $\Sigma_i = t\sigma_b^2\bar{J_t} + \sigma_e^2I_t$ and $\Sigma_i$'s are identical for  $i=1,2,\dots,b$. 
+$$Y_i = \mu_0 \mathbf{1}_t + \gamma z_i + B_i\mathbf{1}_t + E_i$$
+where $B_i \sim N(0, \sigma_b^2)$ and $E_i \sim N_t(0, \sigma_e^2I_t)$. Therefore, $Y_i \sim N_t\left[\mu_0 \mathbf{1}_t + \gamma z_i, \sigma_b^2\mathbf{1}_t\mathbf{1}_t' + \sigma_e^2I_t \right] \sim N_t\left[\mu_0\mathbf{1}_t + \gamma z_i, t\sigma_b^2\bar{J_t} + \sigma_e^2I_t \right]$. Let $\Sigma_i = t\sigma_b^2\bar{J_t} + \sigma_e^2I_t$ and $\Sigma_i$'s are identical for  $i=1,2,\dots,b$. 
 
 $$j = 1: \quad \text{Var}(Y_{ij}^*) = p_1'\Sigma_i p_1 = \sigma_b^2\mathbf{1}_t'\bar{J_t}\mathbf{1}_t + \sigma_e^2 = t\sigma_b^2 + \sigma_e^2$$
 $$j = 2,3,\dots, t:\quad \text{Var}(Y_{ij}^*) = p'_j\Sigma_ip_j = \sigma_e^2$$
 
 ### 3b
 
+The estimates for $\gamma$ are 
+
+$$\hat{\gamma_j} = \frac{\sum_{i=1}^b(z_{ij}^* - \bar{z_{.j}^*})Y_{ij}^*}{\sum_{i=1}^b(z_{ij}^* - \bar{z_{.j}^*})^2} = \frac{\sum_{i=1}^b(p_j'z_i - m)p_j'Y_i}{\sum_{i=1}^b(p_j'z_i-m)^2} \quad m = \frac{1}{b}\sum_{i=1}^b p_j'z_i$$
+where agian, $Y_i \sim N_t\left[\mu_0\mathbf{1}_t + \gamma z_i, t\sigma_b^2\bar{J_t} + \sigma_e^2I_t \right]$. The only randomness lies in $Y_i$ because $p_j$'s are constants and $z_{ij}$'s are pre-determined. Note that the denominator is a scalar which can be simplified as follows. 
+
+$$\sum_{i=1}^b(p_j'z_i-m)^2 = \sum_{i=1}^b(p_j'z_i)^2 - bm^2$$
+
+First, we want to show that $\hat{\gamma_j}$ is unbiased. 
+
+$$\text{E}[\hat{\gamma_j}] = \frac{\sum_{i=1}^b(p_j'z_i - m)p_j'\text{E}(Y_i)}{\sum_{i=1}^b(p_j'z_i-m)^2} = \frac{\sum_{i=1}^b(p_j'z_i - m)(\mu_0p_j'\mathbf{1}_t + \gamma p_j'z_i)}{\sum_{i=1}^b(p_j'z_i)^2 - bm^2}$$
+
+We consider two cases where $j=1$ and $j=2,3, \dots, t$. 
+
+For $j=1$
+
+$$\text{E}[\hat{\gamma_1}] = \frac{\sum_{i=1}^b\left[\sqrt{t}\mu_0p_1'z_i - \sqrt{t}\mu_0m + \gamma(p_1'z_i)^2 - \gamma mp_1'z_i \right]}{\sum_{i=1}^b(p_1'z_i)^2 - bm^2} = \gamma \frac{\sum_{i=1}^b(p_1'z_i)^2 - bm^2}{\sum_{i=1}^b(p_1'z_i)^2 - bm^2} = \gamma
+$$
+
+For $j = 2,3, \dots, t$
+
+$$\text{E}[\hat{\gamma_j}] = \frac{\sum_{i=1}^b\left[\gamma(p_j'z_i)^2 - \gamma mp_j'z_i \right]}{\sum_{i=1}^b(p_j'z_i)^2 - bm^2} = \gamma \frac{\sum_{i=1}^b(p_j'z_i)^2 - bm^2}{\sum_{i=1}^b(p_j'z_i)^2 - bm^2} = \gamma
+$$
+
+Therefore, $\hat{\gamma_j}$ is unbiased. We are now showing that $\hat{\gamma_j}$'s are independent. Notice that the denominator is just a scalar and the nominator is the sum of all the transformed $Y_i$'s, which happen to have identical covariance $\Sigma_i = t\sigma_b^2\bar{J_t} + \sigma_e^2I_t = \Sigma$ as in 3.a. Let the transformation matrices to be $T_j$ and $\hat{\gamma_j}$ and $\hat{\gamma_k}$ are independent if and only if $T_j\Sigma T_k'=0$
+
+$$T_j = \frac{\sum_{i=1}^b(p_j'z_i - m)p_j'}{\sum_{i=1}^b(p_j'z_i-m)^2}$$
+$T_j\Sigma T_k'=0 \iff \left[ \sum_{i=1}^b(p_j'z_i - m)p_j'\right] \Sigma \left[ \sum_{i=1}^b(p_k'z_i - m)p_k'\right]' =0$. Because the $p_j$'s are the columns of Helmert matrix, we have
+
+$$p_j'p_k=0$$
+$$p_j'\bar{J}p_k = 0$$
+if $j\neq k$. Therefore, 
+
+$$\left[ \sum_{i=1}^b(p_j'z_i - m)p_j'\right] \Sigma \left[ \sum_{l=1}^b(p_k'z_l - m)p_k'\right]' = \left[ \sum_{i=1}^b(p_j'z_i - m)p_j'\right] (t\sigma_b^2\bar{J_t} + \sigma_e^2I_t) \left[ \sum_{l=1}^bp_k(p_k'z_l - m)\right] = 0$$
+for $j\neq k$ because of the properties of the Hlmert matrix. Therefore, $\hat{\gamma_j}$ and $\hat{\gamma_k}$ are independent.
 
 
+### 3c
 
+Again, we discuss two cases with $j=1$ and $j=2,3,\dots, t$. 
+
+For $j=1$
+
+$$\text{Var}(\hat{\gamma_1}) = \frac{\sum_{i=1}^b(p_1'z_i - m)p_1'\Sigma p_1(p_1'z_i-m)}{\sum_{i=1}^b(p_1'z_i-m)^2} = \frac{\sum_{i=1}^b(p_1'z_i - m)^2(t\sigma_b^2+\sigma_e^2)}{\sum_{i=1}^b(p_1'z_i-m)^2} = t\sigma_b^2+\sigma_e^2$$
+
+For $j=2,3,\dots, t$, 
+
+$$\text{Var}(\hat{\gamma_j}) = \frac{\sum_{i=1}^b(p_j'z_i - m)p_j'\Sigma p_j(p_j'z_i-m)}{\sum_{i=1}^b(p_j'z_i-m)^2} = \sigma_e^2$$
+
+The BLUE of $\gamma$ can be written as a convex linear combination of all the $\hat{\gamma_j}$'s.
+
+$$\hat{\gamma}_{BLUE} = \sum_{j=1}^t a_j\hat{\gamma_j} \quad \sum_{j=1}^t a_j = 1 \quad \because \text{E}(\hat{\gamma}_{BLUE})=\gamma$$
+And we should pick $a_j$'s such that $\hat{\gamma}_{BLUE}$ have the smallest variance. 
+
+$$\text{Var}(\hat{\gamma}_{BLUE}) = \text{min}_{a_j}\left[ \sum_{j=1}^t a_j^2\text{Var}(\hat{\gamma_j}) \right] = \text{min}_{a_j}\left[ a_1^2(t\sigma_b^2+\sigma_e^2) + \sigma_e^2\sum_{j=2}^t a_j^2\right]$$
+
+We can re-formulate this using $a = a_1$ and $b = a_j$ $\forall j = 2,3, \dots, t$. Therefore our goal is now 
+
+$$\text{Var}(\hat{\gamma}_{BLUE}) = \text{min}_{a, b}\left[ a^2(t\sigma_b^2+\sigma_e^2) + (t-1)b^2\sigma_e^2 \right]$$
+under the constraint of $a + (t-1)b = 1$. Substitute $b = \frac{1-a}{t-1}$ in the above and taking the derivative and set to $0$, we have
+
+$$f(a) = a^2(t\sigma_b^2+\sigma_e^2) + \frac{1}{t-1}(1-a)^2\sigma_e^2$$
+$$\frac{df}{da} = 0 = a(t\sigma_b^2+\sigma_e^2) - \frac{1-a}{t-1}\sigma_e^2 \iff a - (1-a)\frac{1-\rho}{t-1}=0$$
+where $\rho = t\sigma_b^2/(t\sigma_b^2+\sigma_e^2)$. Solving the above equation, we end up with
+
+$$a = \frac{1-\rho}{t-\rho} \quad b = \frac{1}{t-\rho}$$
+$$\hat{\gamma}_{BLUE} = \left( \frac{1-\rho}{t-\rho}\right)\hat{\gamma_1} + \left( \frac{t-1}{t-\rho}\right)\hat{\gamma_j} \quad j = 2,3, \dots, t$$
+
+### 3d
+
+For $\rho \to 1$, 
+
+$$\hat{\gamma}_{BLUE} = \hat{\gamma_j}$$
 
 
 
