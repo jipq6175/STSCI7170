@@ -94,14 +94,14 @@ First, we find $\hat{\beta} = (X'X)^{-1}X'Y = X'Y = (5, 10, 15)' = (\hat{\beta_1
 
 $$h'\hat{\beta}\pm t_{n-p}^{\gamma/2}\sqrt{\frac{1}{n-p}\left[h'(X'X)^{-1}h\right]Y'\left[I-X(X'X)^{-1}X' \right]Y}$$ 
 $$ = h'\hat{\beta}\pm t_{17}^{\gamma/2}\sqrt{\frac{1}{17}h'h\left[Y'Y -(X'Y)'(X'Y) \right]} = h'\hat{\beta}\pm t_{17}^{\gamma/2}\sqrt{\frac{68}{17}h'h} = h'\hat{\beta}\pm 2\left(t_{17}^{\gamma/2}\right)\sqrt{h'h}$$
-Now using $95\%$ condifence interval, $t_{17}^{\gamma/2}$ is the $97.5$ quantile of t-distribution with $17$ degrees of freedom. $t_{17}^{2.5} = 2.1098$. The $95%$ condifence interval of $h'\beta$ is now
+Now using $95\%$ condifence interval, $t_{17}^{\gamma/2}$ is the $97.5$ quantile of t-distribution with $17$ degrees of freedom. $t_{17}^{2.5} = 2.1098$. The $95\%$ condifence interval of $h'\beta$ is now
 
 $$h'\hat{\beta}\pm 4.2196\sqrt{h'h}$$
 The only thing we need to determine is $h$. 
 
-$$h = (1, 0, 0) \quad h'\beta = \beta_1 = \hat{\beta_1}\pm4.2196 \Longrightarrow \text{CI}_{95}(\beta_1) = [0.7804, 9.2196]$$
-$$h = (1, 1, 0) \quad h'\beta = \beta_1+\beta_2 = \hat{\beta_1}+\hat{\beta_2}\pm4.2196\sqrt{2} \Longrightarrow \text{CI}_{95}(\beta_1+\beta_2) = [9.0326, 20.9674]$$
-$$h = (1, 0, -1) \quad h'\beta = \beta_1-\beta_3 = \hat{\beta_1}-\hat{\beta_3}\pm4.2196\sqrt{2} \Longrightarrow \text{CI}_{95}(\beta_1-\beta_3) = [-15.9674, -4.0326]$$
+$$h' = (1, 0, 0) \quad h'\beta = \beta_1 = \hat{\beta_1}\pm4.2196 \Longrightarrow \text{CI}_{95}(\beta_1) = [0.7804, 9.2196]$$
+$$h' = (1, 1, 0) \quad h'\beta = \beta_1+\beta_2 = \hat{\beta_1}+\hat{\beta_2}\pm4.2196\sqrt{2} \Longrightarrow \text{CI}_{95}(\beta_1+\beta_2) = [9.0326, 20.9674]$$
+$$h' = (1, 0, -1) \quad h'\beta = \beta_1-\beta_3 = \hat{\beta_1}-\hat{\beta_3}\pm4.2196\sqrt{2} \Longrightarrow \text{CI}_{95}(\beta_1-\beta_3) = [-15.9674, -4.0326]$$
 
 ## Moser 6.7
 
