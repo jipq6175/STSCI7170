@@ -62,6 +62,35 @@ $$\delta = (\sqrt{\Sigma^-}\mu)'K\sqrt{\Sigma^-}\mu = \mu'\Sigma^-\mu$$
 
 ## Problem 3
 
+The model is 
+
+$$Y_{ij} = \mu_0 + B_i + \tau_j + \gamma z_{ij} + E_{ij}$$
+where $\mu_0, \tau_j, z_{ij}$ are fixed while $B_i\sim N(0, \sigma_b^2)$ and $E_{ij} \sim N(0, \sigma_e^2)$ are random. Re-write the model in the vector form.
+
+$$Y = \mu_0(\mathbf{1}_b \otimes \mathbf{1}_t) + (I_b\otimes \mathbf{1}_t)\tilde{B} + (\mathbf{1}_b\otimes I_t)\tilde{\tau} + (I_b\otimes I_t)\tilde{E}$$
+Let $Y_i = (Y_{i1}, Y_{i2}, \dots, Y_{it})'$, $z_i = (z_{i1}, z_{i2}, \dots, z_{it})'$ and $t\times t$ Helmert matrix $P$
+$$P = \begin{bmatrix}
+\frac{1}{\sqrt{t}} & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{6}} & \dots & \frac{1}{\sqrt{t(t-1)}} \\
+\frac{1}{\sqrt{t}} &-\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{6}} & \dots & \frac{1}{\sqrt{t(t-1)}} \\
+\frac{1}{\sqrt{t}} & 0 & -\frac{2}{\sqrt{6}} & \dots & \frac{1}{\sqrt{t(t-1)}} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+\frac{1}{\sqrt{t}} & 0 & 0 & \dots & -\frac{t-1}{\sqrt{n(n-1)}} \end{bmatrix} = \begin{bmatrix} p_1 & p_2 & \dots & p_t \end{bmatrix}$$
+
+the transformed responses are defined as $Y_{ij}^* = p_j'Y_i$. Note that $p_i'p_j = \delta_{ij}$
+
+### 3a 
+
+We can write $Y_i$ as the following. 
+
+$$Y_i = (\mu_0 + \gamma z_i)\mathbf{1}_t + B_i\mathbf{1}_t + E_i$$
+where $B_i \sim N(0, \sigma_b^2)$ and $E_i \sim N_t(0, \sigma_e^2I_t)$. Therefore, $Y_i \sim N_t\left[(\mu_0 + \gamma z_i)\mathbf{1}_t, \sigma_b^2\mathbf{1}_t\mathbf{1}_t' + \sigma_e^2I_t \right] \sim N_t\left[(\mu_0 + \gamma z_i)\mathbf{1}_t, t\sigma_b^2\bar{J_t} + \sigma_e^2I_t \right]$. Let $\Sigma_i = t\sigma_b^2\bar{J_t} + \sigma_e^2I_t$ and $\Sigma_i$'s are identical for  $i=1,2,\dots,b$. 
+
+$$j = 1: \quad \text{Var}(Y_{ij}^*) = p_1'\Sigma_i p_1 = \sigma_b^2\mathbf{1}_t'\bar{J_t}\mathbf{1}_t + \sigma_e^2 = t\sigma_b^2 + \sigma_e^2$$
+$$j = 2,3,\dots, t:\quad \text{Var}(Y_{ij}^*) = p'_j\Sigma_ip_j = \sigma_e^2$$
+
+### 3b
+
+
 
 
 
