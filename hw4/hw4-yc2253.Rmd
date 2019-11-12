@@ -74,7 +74,7 @@ $$P = \begin{bmatrix}
 \frac{1}{\sqrt{t}} &-\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{6}} & \dots & \frac{1}{\sqrt{t(t-1)}} \\
 \frac{1}{\sqrt{t}} & 0 & -\frac{2}{\sqrt{6}} & \dots & \frac{1}{\sqrt{t(t-1)}} \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
-\frac{1}{\sqrt{t}} & 0 & 0 & \dots & -\frac{t-1}{\sqrt{n(n-1)}} \end{bmatrix} = \begin{bmatrix} p_1 & p_2 & \dots & p_t \end{bmatrix}$$
+\frac{1}{\sqrt{t}} & 0 & 0 & \dots & -\frac{t-1}{\sqrt{t(t-1)}} \end{bmatrix} = \begin{bmatrix} p_1 & p_2 & \dots & p_t \end{bmatrix}$$
 
 the transformed responses are defined as $Y_{ij}^* = p_j'Y_i$. Note that $p_i'p_j = \delta_{ij}$
 
@@ -123,7 +123,7 @@ $$p_j'\bar{J}p_k = 0$$
 if $j\neq k$. Therefore, 
 
 $$\left[ \sum_{i=1}^b(p_j'z_i - m)p_j'\right] \Sigma \left[ \sum_{l=1}^b(p_k'z_l - m)p_k'\right]' = \left[ \sum_{i=1}^b(p_j'z_i - m)p_j'\right] (t\sigma_b^2\bar{J_t} + \sigma_e^2I_t) \left[ \sum_{l=1}^bp_k(p_k'z_l - m)\right] = 0$$
-for $j\neq k$ because of the properties of the Hlmert matrix. Therefore, $\hat{\gamma_j}$ and $\hat{\gamma_k}$ are independent.
+for $j\neq k$ because of the properties of the Helmert matrix. Therefore, $\hat{\gamma_j}$ and $\hat{\gamma_k}$ are independent.
 
 
 ### 3c
@@ -155,13 +155,13 @@ $$\frac{df}{da} = 0 = a(t\sigma_b^2+\sigma_e^2) - \frac{1-a}{t-1}\sigma_e^2 \iff
 where $\rho = t\sigma_b^2/(t\sigma_b^2+\sigma_e^2)$. Solving the above equation, we end up with
 
 $$a = \frac{1-\rho}{t-\rho} \quad b = \frac{1}{t-\rho}$$
-$$\hat{\gamma}_{BLUE} = \left( \frac{1-\rho}{t-\rho}\right)\hat{\gamma_1} + \left( \frac{t-1}{t-\rho}\right)\hat{\gamma_j} \quad j = 2,3, \dots, t$$
+$$\hat{\gamma}_{BLUE} = \left( \frac{1-\rho}{t-\rho}\right)\hat{\gamma_1} + \sum_{j=2}^t\left( \frac{1}{t-\rho}\right)\hat{\gamma_j}$$
 
 ### 3d
 
 For $\rho \to 1$, 
 
-$$\hat{\gamma}_{BLUE} = \hat{\gamma_j}$$
+$$\hat{\gamma}_{BLUE} \to \frac{1}{t-1}\sum_{j=2}^t\hat{\gamma_j}$$
 
 
 
