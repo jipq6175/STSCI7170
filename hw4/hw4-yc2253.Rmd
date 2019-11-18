@@ -161,7 +161,54 @@ $$\hat{\gamma}_{BLUE} = \left( \frac{1-\rho}{t-\rho}\right)\hat{\gamma_1} + \sum
 
 For $\rho \to 1$, 
 
-$$\hat{\gamma}_{BLUE} \to \frac{1}{t-1}\sum_{j=2}^t\hat{\gamma_j}$$
+$$\hat{\gamma}_{BLUE} \to \frac{1}{t-1}\sum_{j=2}^t\hat{\gamma_j} = \frac{1}{t-1}\sum_{j=2}^t\frac{\sum_{i=1}^b(z_{ij}^* - \bar{z_{.j}^*})Y_{ij}^*}{\sum_{i=1}^b(z_{ij}^* - \bar{z_{.j}^*})^2} = \frac{\sum_{i=1}^b\sum_{j=2}^t(z_{ij}^* - \bar{z_{.j}^*})Y_{ij}^*}{\sum_{i=1}^b\sum_{j=2}^t(z_{ij}^* - \bar{z_{.j}^*})^2}$$
+Rewrite the denominator and nominator as a vector form by first identifying that
+
+$$z^* = \begin{bmatrix} 
+I_b \otimes p_1' \\
+I_b \otimes p_2' \\
+I_b \otimes p_3' \\ 
+\vdots\\
+I_b \otimes p_t' \end{bmatrix}z \quad \text{and} \quad Y^* = \begin{bmatrix} 
+I_b \otimes p_1' \\
+I_b \otimes p_2' \\
+I_b \otimes p_3' \\ 
+\vdots\\
+I_b \otimes p_t' \end{bmatrix}Y$$
+
+We define the following for later convenience:
+
+$$\tilde{z}^* = \begin{bmatrix} 
+I_b \otimes p_2' \\
+I_b \otimes p_3' \\ 
+\vdots\\
+I_b \otimes p_t' \end{bmatrix}z \quad \tilde{Y}^* = \begin{bmatrix} 
+I_b \otimes p_2' \\
+I_b \otimes p_3' \\ 
+\vdots\\
+I_b \otimes p_t' \end{bmatrix}Y$$
+
+
+The demominator is 
+
+$$\sum_{i=1}^b\sum_{j=2}^t(z_{ij}^* - \bar{z_{.j}^*})^2 = \tilde{z}^{*}{'}(C_b\otimes I_t)\tilde{z}^* = z'\begin{bmatrix}
+I_b \otimes p_2 & I_b\otimes p_3 & \dots & I_b \otimes p_t \end{bmatrix}(C_b \otimes I_t)\begin{bmatrix} 
+I_b \otimes p_2' \\
+I_b \otimes p_3' \\ 
+\vdots\\
+I_b \otimes p_t' \end{bmatrix}z $$
+
+$$ = z' \begin{bmatrix}
+C_b \otimes p_2 & C_b\otimes p_3 & \dots & C_b \otimes p_t \end{bmatrix}\begin{bmatrix} 
+I_b \otimes p_2' \\
+I_b \otimes p_3' \\ 
+\vdots\\
+I_b \otimes p_t' \end{bmatrix}z = z' \left(C_b \otimes \sum_{j=2}^tp_jp_j' \right)z = z'(C_b\otimes C_t)z = \sum_{i=1}^b\sum_{j=2}^t(z_{ij} - \bar{z}_{i.} - \bar{z}_{.j} + \bar{z}_{..})^2$$
+
+Similarly, the nominator
+
+$$\sum_{i=1}^b\sum_{j=2}^t(z_{ij}^* - \bar{z_{.j}^*})Y_{ij}^* = z^*{'}(C_b \otimes I_t)Y^* = z'(C_b\otimes C_t)Y = \sum_{i=1}^b\sum_{j=2}^t(z_{ij} - \bar{z}_{i.} - \bar{z}_{.j} + \bar{z}_{..})Y_{ij}$$
+
 
 
 
