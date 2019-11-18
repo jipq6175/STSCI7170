@@ -209,7 +209,9 @@ Similarly, the nominator
 
 $$\sum_{i=1}^b\sum_{j=2}^t(z_{ij}^* - \bar{z_{.j}^*})Y_{ij}^* = z^*{'}(C_b \otimes I_t)Y^* = z'(C_b\otimes C_t)Y = \sum_{i=1}^b\sum_{j=2}^t(z_{ij} - \bar{z}_{i.} - \bar{z}_{.j} + \bar{z}_{..})Y_{ij}$$
 
+Therefore, 
 
+$$\hat{\gamma}_{BLUE} \to \frac{\sum_{i=1}^b\sum_{j=2}^t(z_{ij} - \bar{z}_{i.} - \bar{z}_{.j} + \bar{z}_{..})Y_{ij}}{\sum_{i=1}^b\sum_{j=2}^t(z_{ij} - \bar{z}_{i.} - \bar{z}_{.j} + \bar{z}_{..})^2}$$
 
 
 
