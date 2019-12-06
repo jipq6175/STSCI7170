@@ -2,8 +2,7 @@
 
 library(MASS)
 
-# The EM function 
-
+# The EM function for variance components
 
 vcem = function(X, Y, Z, beta, u, tol=1e-5, maxiter=10000){
   
@@ -64,16 +63,22 @@ vcem = function(X, Y, Z, beta, u, tol=1e-5, maxiter=10000){
     
     
     # Calculate the log-likelihood
-    
+    ll = 1
     
     
     # Print the fixed/random effect iteration and the statistics of this iteration
+    sprintf(fmt = "-- Iteration # %5d ...", counter); 
+    sprintf(fmt = "   Random effect variable u =  ..", ); 
+    sprintf(fmt = "   Fixed effect variable beta =  ..", );
+    sprintf(fmt = "   Improvement on LL d = %0.4f ..", d);
     
     
   }
   
   
   # return the random effect u0 and fixed effect beta0
-  
+  # Return the stuff we got from the em algorithm
+  resultlist = list("random" = u0, "fixed" = beta0, "ll" = finallikelihood); 
+  return(resultlist); 
   
 }
