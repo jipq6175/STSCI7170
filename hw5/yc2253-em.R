@@ -32,39 +32,41 @@ vcem = function(X, Y, Z, beta, u, tol=1e-5, maxiter=10000){
   }
   
   
-  # Some variables
-  d = 1.0; # difference in log-likelihood
-  beta0 = beta; # The beta container
-  u0 = u; # The u container
-  P = X %*% ginv(t(X) %*% X) %*% t(X); # Projection matrix
-  z = cbind(rep(1.0, n), Z);
-  counter = 0;
-  
+  # Initialize some variables
+  d = 1.0;                              # difference in log-likelihood
+  beta0 = beta;                         # The beta container
+  u0 = u;                               # The u container
+  P = X %*% ginv(t(X) %*% X) %*% t(X);  # Projection matrix
+  z = cbind(rep(1.0, n), Z);            # The Z container with random error, E
+  counter = 0;                          # Counter of the iteration
+  ll0 = -Inf                            # Calculate the loglikelihood
   
   while((d > tol) & (counter < maxiter)){
     
     counter = counter + 1;
-    sigma = diag(u0) %*% Z %*% t(Z); # Calculate sigma
-    invsigma = ginv(sigma); # Inverse sigma
+    sigma = diag(u0) %*% Z %*% t(Z);    # Calculate sigma
+    invsigma = ginv(sigma);             # Inverse sigma
 
         
-    # Calculate random effects update
+    # Random effects update
     for(i in 1:length(u0)){
   
-      b = invsigma %*% (Y - X %*% beta0); 
+      b = invsigma %*% (Y - X %*% beta0);  # This term seems to show up many times, avoid repetitive computation 
       v = t(Z[, i]) %*% b;
       u0[i] = u0[i] - u0[i]^2 * (t(Z[, i]) %*% invsigma %*% Z[, i]) + u0[i]^2 * t(v) %*% v; 
+      
     }
     
     
-    # Calculate fixed effect update
+    # Fixed effect update
     s = X %*% beta0 + u0[1] * b;
     beta0 = solve(X, P %*% s);
     
     
-    # Calculate the log-likelihood
-    ll = 1
-    
+    # Log-likelihood
+    ll1 = 1 
+    d = ll1 - ll0;
+    ll0 = ll1; 
     
     # Print the fixed/random effect iteration and the statistics of this iteration
     sprintf(fmt = "-- Iteration # %5d ...", counter); 
@@ -82,3 +84,4 @@ vcem = function(X, Y, Z, beta, u, tol=1e-5, maxiter=10000){
   return(resultlist); 
   
 }
+
