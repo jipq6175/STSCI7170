@@ -4,32 +4,9 @@ library(MASS)
 
 # The EM function for variance components
 
-vcem = function(X, Y, Z, beta, u, tol=1e-5, maxiter=10000){
+vcem = function(Xlist, Y, Z, beta, u, tol=1e-5, maxiter=10000){
   
-  # Check the dimensions 
-  n = dim(X)[1]; 
-  p = dim(X)[2]; 
-  q = dim(Z)[2];
-
-  if (length(Y) != n){
-    print('The rows of X does not equal to length of Y .. '); 
-    return(0); 
-  }
   
-  if (dim(Z)[1] != n){
-    print('The rows of Z does not equal to length of Y .. '); 
-    return(0); 
-  }
-  
-  if (length(beta) != p){
-    print('The length of beta does not equal to columns of X .. '); 
-    return(0); 
-  }
-  
-  if (length(u) != q+1){
-    print('The length of u does not equal to columns of Z .. '); 
-    return(0); 
-  }
   
   
   # Initialize some variables
