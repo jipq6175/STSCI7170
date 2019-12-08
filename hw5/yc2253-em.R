@@ -13,15 +13,15 @@ library(MASS)
 
 vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   
+  
   n = length(Y);                        # total dimension
   q = length(zlist);                    # number of variance components
-  r = rep(0, q);                      # rank for matrix Z's
-  Zlist = list();
+  r = rep(0, q);                        # rank for matrix Z's 
+  Zlist = list();                       # Constructing the covariance matrices Z = zz' here
   for(i in 1:q){
     r[i] = dim(zlist[i])[2];
     Zlist[i] = zlist[i] %*% t(zlist[i]);
   }
-  
   
   
   
