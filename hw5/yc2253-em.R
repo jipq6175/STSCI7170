@@ -64,7 +64,7 @@ vcem = function(X, Y, Z, beta, u, tol=1e-5, maxiter=10000){
     
     
     # Log-likelihood
-    ll1 = 1 
+    ll1 = -0.5 * sum(log(u0) - u0);
     d = ll1 - ll0;
     ll0 = ll1; 
     
