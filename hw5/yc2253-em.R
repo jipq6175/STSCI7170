@@ -34,32 +34,30 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   counter = 0;                          # Counter of the iteration
   ll0 = -Inf                            # Calculate the loglikelihood
   
+  
+  
+  # The EM Algorithm
   while((d > tol) & (counter < maxiter)){
     
     counter = counter + 1;
     sigma = matrix(0.0, n, n);          # Calculate sigma
-    for(i in 1:q){
-      sigma = sigma + u0[i] * Zlist[i]; 
-    }
+    for(i in 1:q) sigma = sigma + u0[i] * Zlist[i]; 
     invsigma = ginv(sigma);             # Inverse sigma
 
         
     # Random effects update
     b = invsigma %*% (Y - X %*% beta0); # This term seems to show up many times, avoid repetitive computation 
-    for(i in 1:q){
-      v = t(zlist[i]) %*% b;
-      t = u0[i] - u0[i]^2 * (t(Z[, i]) %*% invsigma %*% Z[, i]) + u0[i]^2 * t(v) %*% v; 
-      u0[i] = t / r[i];
-    }
+    for(i in 1:q) t = ( u0[i] * r[i] - sum(diag(u0[i]^2 * (t(zlist[i]) %*% invsigma %*% zlist[i]))) 
+                        + u0[i]^2 * t(b) %*% (Zlist[i] %*% b) )/r[i]; 
     
     
     # Fixed effect update
-    s = X %*% beta0 + u0[1] * b;
+    s = X %*% beta0 + u0[q] * b;
     beta0 = solve(X, P %*% s);
     
     
     # Log-likelihood
-    ll1 = -0.5 * sum(log(u0) - u0);
+    ll1 = -0.5 * sum(r * log(u0) - u0);
     d = ll1 - ll0;
     ll0 = ll1; 
     
@@ -72,6 +70,10 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
     
   }
   
+  
+  print("--------------- EM Done ---------------");
+  sprintf(fmt="- Number of iterations = %5d.", counter);
+  sprintf(fmt="- Final Log-Likelihood = %5f.", ll1); 
   
   # return the random effect u0 and fixed effect beta0
   # Return the stuff we got from the em algorithm
