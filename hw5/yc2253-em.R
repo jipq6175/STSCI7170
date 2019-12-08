@@ -15,16 +15,12 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   
   n = length(Y);                        # total dimension
   q = length(zlist);                    # number of variance components
-  r = rep(n, q+1);                      # rank for matrix Z's
+  r = rep(0, q);                      # rank for matrix Z's
   Zlist = list();
   for(i in 1:q){
-    r[i+1] = dim(zlist[i])[2];
+    r[i] = dim(zlist[i])[2];
     Zlist[i] = zlist[i] %*% t(zlist[i]);
   }
-  
-  
-  
-  
   
   
   
@@ -41,21 +37,19 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   while((d > tol) & (counter < maxiter)){
     
     counter = counter + 1;
-    sigma = diag(rep(u0[1], n));        # Calculate sigma
+    sigma = matrix(0.0, n, n);          # Calculate sigma
     for(i in 1:q){
-      sigma = sigma + u0[i+1] * Zlist[i]; 
+      sigma = sigma + u0[i] * Zlist[i]; 
     }
     invsigma = ginv(sigma);             # Inverse sigma
 
         
     # Random effects update
-    for(i in 1:length(u0)){
-  
-      b = invsigma %*% (Y - X %*% beta0);  # This term seems to show up many times, avoid repetitive computation 
-      v = t(Z[, i]) %*% b;
+    b = invsigma %*% (Y - X %*% beta0); # This term seems to show up many times, avoid repetitive computation 
+    for(i in 1:q){
+      v = t(zlist[i]) %*% b;
       t = u0[i] - u0[i]^2 * (t(Z[, i]) %*% invsigma %*% Z[, i]) + u0[i]^2 * t(v) %*% v; 
       u0[i] = t / r[i];
-      
     }
     
     
@@ -81,7 +75,7 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   
   # return the random effect u0 and fixed effect beta0
   # Return the stuff we got from the em algorithm
-  resultlist = list("random" = u0, "fixed" = beta0, "ll" = finallikelihood); 
+  resultlist = list("random" = u0, "fixed" = beta0, "ll" = ll1); 
   return(resultlist); 
   
 }
