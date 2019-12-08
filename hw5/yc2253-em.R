@@ -2,9 +2,29 @@
 
 library(MASS)
 
-# The EM function for variance components
+# The EM function for variance components: Y = X beta + Zu + E
+# X: regression matrix
+# Y: response
+# Zlist: variance components, i.e. z vectors
+# beta: Initial guess for the fixed effects
+# u: initial guess for the random effects
+# tol: convergence criterion for log-likelihood improvement
+# maxiter: max number of iteration 
 
-vcem = function(Xlist, Y, Z, beta, u, tol=1e-5, maxiter=10000){
+vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
+  
+  n = length(Y);                        # total dimension
+  q = length(zlist);                    # number of variance components
+  r = rep(n, q+1);                      # rank for matrix Z's
+  Zlist = list();
+  for(i in 1:q){
+    r[i+1] = dim(zlist[i])[2];
+    Zlist[i] = zlist[i] %*% t(zlist[i]);
+  }
+  
+  
+  
+  
   
   
   
@@ -21,7 +41,10 @@ vcem = function(Xlist, Y, Z, beta, u, tol=1e-5, maxiter=10000){
   while((d > tol) & (counter < maxiter)){
     
     counter = counter + 1;
-    sigma = diag(u0) %*% Z %*% t(Z);    # Calculate sigma
+    sigma = diag(rep(u0[1], n));        # Calculate sigma
+    for(i in 1:q){
+      sigma = sigma + u0[i+1] * Zlist[i]; 
+    }
     invsigma = ginv(sigma);             # Inverse sigma
 
         
@@ -30,7 +53,8 @@ vcem = function(Xlist, Y, Z, beta, u, tol=1e-5, maxiter=10000){
   
       b = invsigma %*% (Y - X %*% beta0);  # This term seems to show up many times, avoid repetitive computation 
       v = t(Z[, i]) %*% b;
-      u0[i] = u0[i] - u0[i]^2 * (t(Z[, i]) %*% invsigma %*% Z[, i]) + u0[i]^2 * t(v) %*% v; 
+      t = u0[i] - u0[i]^2 * (t(Z[, i]) %*% invsigma %*% Z[, i]) + u0[i]^2 * t(v) %*% v; 
+      u0[i] = t / r[i];
       
     }
     
