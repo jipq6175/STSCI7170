@@ -14,7 +14,7 @@ for (i in 1:221){
   }
 }
 
-
+# pick the knots randomly.
 knots = sort(sample(x, 9)); 
 
 
@@ -31,9 +31,9 @@ for (i in 1:9){
 }
 zlist[10] = list(diag(length(y))); 
 yfit = XG %*% ginv(t(XG) %*% XG) %*% t(XG) %*% y; 
-result = vcem(X, y, zlist, c(1, 1e-5, 1e-10), rep(1, 10), maxiter=1000);
+#result = vcem(X, y, zlist, c(1, 1e-5, 1e-10), rep(1, 10), maxiter=5000);
 
 
 
 plot(x, y);
-plot(x, yfit, col='blue')
+lines(x, yfit, col='blue', lwd=7.5)
