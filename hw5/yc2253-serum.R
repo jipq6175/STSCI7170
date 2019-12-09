@@ -16,21 +16,18 @@ for(i in 1:n){
 }
 
 
-# Construct the "vectors" for the regression matrix X = [x1 x2 x3 x4]
-# And 
-Jn = rep(1, n) %*% t(rep(1, n)) / n; 
-Cn = diag(n) - Jn;
-Jd = rep(1, d) %*% t(rep(1, d)) / d;
-Cd = diag(d) - Jd;
-Jt = rep(1, t) %*% t(rep(1, t)) / t;
-Ct = diag(t) - Jt;
+# Construct the "vectors" for the regression matrix X = [x1 x2 x3 x4] of fixed effects
+# And Z = [z1 z2 z3 z4] of the random effects
+x1 = rep(1, n) %x% rep(1, d) %x% rep(1, t); 
+x2 = rep(1, n) %x% diag(d) %x% rep(1, t);
+x3 = rep(1, n) %x% rep(1, d) %x% diag(t);
+x4 = rep(1, n) %x% diag(d) %x% diag(t);
 
-A1 = Jn %x% Jd %x% Jt;
-A2 = Cn %x% Jd %x% Jt;
-A3 = Jn %x% Cd %x% Jt;
-A4 = Cn %x% Cd %x% Jt;
-A5 = Jn %x% Jd %x% Ct;
-A6 = Cn %x% Jd %x% Ct;
-A7 = Jn %x% Cd %x% Ct;
-A8 = Cn %x% Cd %x% Ct;
+X = cbind(x1, x2, x3, x4);
 
+z1 = diag(n) %x% rep(1, d) %x% rep(1, t);
+z2 = diag(n) %x% diag(d) %x% rep(1, t);
+z3 = diag(n) %x% rep(1, d) %x% diag(t);
+z4 = diag(n) %x% diag(d) %x% diag(t); 
+
+zlist = list(z1, z2, z3, z4);
