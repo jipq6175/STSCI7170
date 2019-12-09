@@ -19,8 +19,9 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   r = rep(0, q);                        # rank for matrix Z's 
   Zlist = list();                       # Constructing the covariance matrices Z = zz' here
   for(i in 1:q){
-    r[i] = dim(zlist[i])[2];
-    Zlist[i] = zlist[i] %*% t(zlist[i]);
+    z = unlist(zlist[i]);
+    r[i] = dim(z)[2];
+    Zlist[i] = z %*% t(z);
   }
   
   
@@ -30,7 +31,6 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   beta0 = beta;                         # The beta container
   u0 = u;                               # The u container
   P = X %*% ginv(t(X) %*% X) %*% t(X);  # Projection matrix
-  z = cbind(rep(1.0, n), Z);            # The Z container with random error, E
   counter = 0;                          # Counter of the iteration
   ll0 = -Inf                            # Calculate the loglikelihood
   
@@ -47,8 +47,12 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
         
     # Random effects update
     b = invsigma %*% (Y - X %*% beta0); # This term seems to show up many times, avoid repetitive computation 
-    for(i in 1:q) t = ( u0[i] * r[i] - sum(diag(u0[i]^2 * (t(zlist[i]) %*% invsigma %*% zlist[i]))) 
-                        + u0[i]^2 * t(b) %*% (Zlist[i] %*% b) )/r[i]; 
+    for(i in 1:q){
+      z = unlist(zlist[i]);
+      Z = unlist(Zlist[i]);
+      t = ( u0[i] * r[i] - sum(diag(u0[i]^2 * (t(z) %*% invsigma %*% z))) 
+                        + u0[i]^2 * t(b) %*% (Z %*% b) )/r[i]; 
+    }
     
     
     # Fixed effect update
@@ -63,8 +67,8 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
     
     # Print the fixed/random effect iteration and the statistics of this iteration
     sprintf(fmt = "-- Iteration # %5d ...", counter); 
-    sprintf(fmt = "   Random effect variable u =  ..", ); 
-    sprintf(fmt = "   Fixed effect variable beta =  ..", );
+    #sprintf(fmt = "   Random effect variable u =  ..", ); 
+    #sprintf(fmt = "   Fixed effect variable beta =  ..", );
     sprintf(fmt = "   Improvement on LL d = %0.4f ..", d);
     
     
