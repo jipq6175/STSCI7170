@@ -31,3 +31,6 @@ z3 = diag(n) %x% rep(1, d) %x% diag(t);
 z4 = diag(n) %x% diag(d) %x% diag(t); 
 
 zlist = list(z1, z2, z3, z4);
+
+
+result = vcem(x4, Y, zlist, runif(8, 1, 5), runif(4))

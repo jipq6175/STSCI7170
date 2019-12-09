@@ -19,11 +19,10 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   r = rep(0, q);                        # rank for matrix Z's 
   Zlist = list();                       # Constructing the covariance matrices Z = zz' here
   for(i in 1:q){
-    z = matrix(unlist(zlist[i]), ncol=n);
+    z = matrix(unlist(zlist[i]), nrow=n);
     r[i] = dim(z)[2];
-    Zlist[i] = z %*% t(z);
+    Zlist[i] = list(z %*% t(z));
   }
-  
   
   
   # Initialize some variables
@@ -32,7 +31,7 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   u0 = u;                               # The u container
   P = X %*% ginv(t(X) %*% X) %*% t(X);  # Projection matrix
   counter = 0;                          # Counter of the iteration
-  ll0 = -Inf                            # Calculate the loglikelihood
+  ll0 = -10                            # Calculate the loglikelihood
   
   
   
@@ -41,8 +40,8 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
     
     counter = counter + 1;
     sigma = matrix(0.0, n, n);          # Calculate sigma
-    for(i in 1:q) sigma = sigma + u0[i] * Zlist[i]; 
-    invsigma = ginv(sigma);             # Inverse sigma
+    for(i in 1:q) sigma = sigma + u0[i] * matrix(unlist(Zlist[i]), ncol=n); 
+    invsigma = solve(sigma);             # Inverse sigma
 
         
     # Random effects update
@@ -50,34 +49,36 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
     for(i in 1:q){
       z = matrix(unlist(zlist[i]), ncol=n);
       Z = matrix(unlist(Zlist[i]), ncol=n);
-      t = ( u0[i] * r[i] - sum(diag(u0[i]^2 * (t(z) %*% invsigma %*% z))) 
+      u0[i] = ( u0[i] * r[i] - sum(diag(u0[i]^2 * (z %*% invsigma %*% t(z)))) 
                         + u0[i]^2 * t(b) %*% (Z %*% b) )/r[i]; 
     }
     
     
     # Fixed effect update
     s = X %*% beta0 + u0[q] * b;
-    beta0 = solve(X, P %*% s);
+    beta0 = solve(t(X) %*% X, t(X) %*% P %*% s);
     
     
     # Log-likelihood
-    ll1 = -0.5 * sum(r * log(u0) - u0);
+    ll1 = -0.5 * sum(r * log(abs(u0)) - u0);
     d = ll1 - ll0;
     ll0 = ll1; 
     
     # Print the fixed/random effect iteration and the statistics of this iteration
-    sprintf(fmt = "-- Iteration # %5d ...", counter); 
+    print(sprintf(fmt = "-- Iteration # %5d ...", counter)); 
+    print(u0);
+    print(beta0);
     #sprintf(fmt = "   Random effect variable u =  ..", ); 
     #sprintf(fmt = "   Fixed effect variable beta =  ..", );
-    sprintf(fmt = "   Improvement on LL d = %0.4f ..", d);
+    print(sprintf(fmt = "   Improvement on LL d = %0.4f ..", d));
     
     
   }
   
   
   print("--------------- EM Done ---------------");
-  sprintf(fmt="- Number of iterations = %5d.", counter);
-  sprintf(fmt="- Final Log-Likelihood = %5f.", ll1); 
+  print(sprintf(fmt="- Number of iterations = %5d.", counter));
+  print(sprintf(fmt="- Final Log-Likelihood = %5f.", ll1)); 
   
   # return the random effect u0 and fixed effect beta0
   # Return the stuff we got from the em algorithm
