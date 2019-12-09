@@ -32,5 +32,6 @@ z4 = diag(n) %x% diag(d) %x% diag(t);
 
 zlist = list(z1, z2, z3, z4);
 
-
-result = vcem(x4, Y, zlist, runif(8, 1, 5), runif(4))
+beta = runif(8, 1, 5);
+u = c(10, 1, 1, 100);
+result = vcem(x4, Y, zlist, beta, u, maxiter=50000);
