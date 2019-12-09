@@ -20,16 +20,20 @@ knots = sort(sample(x, 9));
 
 # construct X
 X = cbind(rep(1, length(x)), x, x^2); 
-
+XG = X; 
 # construct z
 zlist = list();
 for (i in 1:9){
   tmp = x - knots[i]; 
   tmp[which(tmp <= 0)] = 0.0; 
   zlist[i] = list(tmp^2); 
-  X = cbind(X, tmp^2); 
+  XG = cbind(XG, tmp^2); 
 }
 zlist[10] = list(diag(length(y))); 
+yfit = XG %*% ginv(t(XG) %*% XG) %*% t(XG) %*% y; 
+result = vcem(X, y, zlist, c(1, 1e-5, 1e-10), rep(1, 10), maxiter=1000);
 
 
-result = vcem(X, y, zlist, c(1, 1e-5, 1e-10), rep(10, 10), maxiter = 2);
+
+plot(x, y);
+plot(x, yfit, col='blue')
