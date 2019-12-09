@@ -31,7 +31,7 @@ for (i in 1:9){
 }
 zlist[10] = list(diag(length(y))); 
 yfit = XG %*% ginv(t(XG) %*% XG) %*% t(XG) %*% y; 
-#result = vcem(X, y, zlist, c(1, 1e-5, 1e-10), rep(1, 10), maxiter=5000);
+result = vcem(X, y, zlist, c(1, 1e-5, 1e-10), rep(1, 10), maxiter=5000);
 
 
 
