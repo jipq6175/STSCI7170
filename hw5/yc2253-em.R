@@ -19,7 +19,7 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
   r = rep(0, q);                        # rank for matrix Z's 
   Zlist = list();                       # Constructing the covariance matrices Z = zz' here
   for(i in 1:q){
-    z = unlist(zlist[i]);
+    z = matrix(unlist(zlist[i]), ncol=n);
     r[i] = dim(z)[2];
     Zlist[i] = z %*% t(z);
   }
@@ -48,8 +48,8 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
     # Random effects update
     b = invsigma %*% (Y - X %*% beta0); # This term seems to show up many times, avoid repetitive computation 
     for(i in 1:q){
-      z = unlist(zlist[i]);
-      Z = unlist(Zlist[i]);
+      z = matrix(unlist(zlist[i]), ncol=n);
+      Z = matrix(unlist(Zlist[i]), ncol=n);
       t = ( u0[i] * r[i] - sum(diag(u0[i]^2 * (t(z) %*% invsigma %*% z))) 
                         + u0[i]^2 * t(b) %*% (Z %*% b) )/r[i]; 
     }
