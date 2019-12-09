@@ -7,7 +7,11 @@ lines = readLines('lidar-1.txt');
 for (i in 1:221){
   s = as.numeric(unlist(strsplit(lines[i+3], ' ')));
   x[i] = s[3];
-  y[i] = s[4]; 
+  if (is.na(s[4])){
+    y[i] = s[5];
+  }else{
+    y[i] = s[4];
+  }
 }
 
 
@@ -18,3 +22,14 @@ knots = sort(sample(x, 9));
 X = cbind(rep(1, length(x)), x, x^2); 
 
 # construct z
+zlist = list();
+for (i in 1:9){
+  tmp = x - knots[i]; 
+  tmp[which(tmp <= 0)] = 0.0; 
+  zlist[i] = list(tmp^2); 
+  X = cbind(X, tmp^2); 
+}
+zlist[10] = list(diag(length(y))); 
+
+
+result = vcem(X, y, zlist, c(1, 1e-5, 1e-10), rep(10, 10), maxiter = 2);

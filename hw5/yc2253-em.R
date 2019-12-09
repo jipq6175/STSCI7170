@@ -66,7 +66,7 @@ vcem = function(X, Y, zlist, beta, u, tol=1e-5, maxiter=10000){
     ll0 = ll1; 
     
     # Print the fixed/random effect iteration and the statistics of this iteration
-    if(counter %% 100 == 0) {
+    if(counter %% 1 == 0) {
       print(sprintf(fmt = "-- Iteration # %5d ...", counter)); 
       #print(u0);
       print(t(beta0));
